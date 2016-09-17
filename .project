@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>Ds2016-2Ecommerce</name>
+	<name>DS2016-2Ecommerce</name>
 	<comment></comment>
 	<projects>
 	</projects>
 	<buildSpec>
-		<buildCommand>
-			<name>org.eclipse.wst.jsdt.core.javascriptValidator</name>
-			<arguments>
-			</arguments>
-		</buildCommand>
 		<buildCommand>
 			<name>org.eclipse.jdt.core.javabuilder</name>
 			<arguments>
@@ -42,7 +37,7 @@
 		<nature>org.eclipse.wst.common.project.facet.core.nature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.jboss.tools.jst.web.kb.kbnature</nature>
-		<nature>org.jboss.tools.cdi.core.cdinature</nature>
 		<nature>org.eclipse.wst.jsdt.core.jsNature</nature>
+		<nature>org.jboss.tools.cdi.core.cdinature</nature>
 	</natures>
 </projectDescription>
