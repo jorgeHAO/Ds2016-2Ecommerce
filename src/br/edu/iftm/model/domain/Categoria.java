@@ -15,11 +15,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name="TB_CATEGORIA")
 public class Categoria implements Serializable {
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="CD_CATEGORIA")
@@ -30,6 +25,10 @@ public class Categoria implements Serializable {
 
 	public Categoria() {
 		super();
+	}
+	
+	public Categoria(Integer id) {
+		this.codigo = id;
 	}
 
 	public Integer getCodigo() {

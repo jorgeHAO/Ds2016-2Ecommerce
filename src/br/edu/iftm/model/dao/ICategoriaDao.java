@@ -10,7 +10,7 @@ public interface ICategoriaDao {
 
 	void atualizar(Categoria categoria);
 
-	void excluir(Categoria categoria);
+	void excluir(Integer id);
 
 	List<Categoria> buscar(Categoria categoria);
 

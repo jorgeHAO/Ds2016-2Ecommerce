@@ -38,8 +38,8 @@ public class CategoriaDao implements ICategoriaDao {
 	 */
 	@Override
 	@Transactional
-	public void excluir(Categoria categoria) {
-		Categoria merge = entityManager.merge(categoria);
+	public void excluir(Integer id) {
+		Categoria merge = entityManager.merge(new Categoria(id));
 		entityManager.remove(merge);
 	}
 
@@ -53,10 +53,9 @@ public class CategoriaDao implements ICategoriaDao {
 		return query.getResultList();
 	}
 
-	@Override
 	public Categoria buscarPorId(Integer id) {
 		Query query = entityManager.createQuery("from Categoria where codigo = :codigo");
-		query.setParameter("codigo", id);
+		query.setParameter("codigo",id);
 		return (Categoria)query.getSingleResult();
 	}
 

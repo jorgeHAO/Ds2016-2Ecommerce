@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html ng-app="clienteModule">
+<head>
+	<meta charset="utf-8"/>
+	<title>Cliente</title>
+	<link rel="stylesheet" href="css/bootstrap.min.css"></link>
+	<script src="js/jquery-3.1.1.min.js"></script>
+	<script src="js/bootstrap.js"></script>
+</head>
+<body ng-controller="clienteControl">
+<div ng-include src="'menu.html'"></div>
+<div class="panel panel-default">
+  <div class="panel-body">
+	<div>
+		<ul class="nav nav-tabs" role="tablist">
+			<li role="presentation" class="active"><a href="#cadastro" role="tab" data-toggle="tab">Cadastro</a></li>
+			<li role="presentation"><a href="#dados" aria-controls="dados" role="tab" data-toggle="tab">Dados</a></li>
+		</ul>
+		
+		<div class="tab-content">
+			<div role="tabpanel" class="tab-pane active" id="cadastro">
+			<br>				
+				<form>
+					<div class="form-group">
+						<button type="button" ng-click="novo()" class="btn btn-info">Novo</button>
+						<button type="submit" ng-click="salvar()" class="btn btn-success">Salvar</button>
+						<button type="button" ng-click="excluir()" class="btn btn-danger">Excluir</button>
+						<button type="button" ng-click="pesquisar()" class="btn btn-warning">Pesquisar</button>
+					</div>	
+				  <hr/>	
+				  <div class="form-group col-md-2">
+					<label for="inputCodigo">Código:</label>
+					<input type="number" class="form-control" disabled="true" ng-model="cliente.codigo" id="inputCodigo" placeholder="Código do cliente">
+				  </div>
+				  <div class="form-group col-md-6">
+					<label for="inputNome">Nome:</label>
+					<input type="text" class="form-control" ng-model="cliente.nome" id="inputNome" placeholder="Insira o nome">
+				  </div>				  
+				</form>
+				
+			</div>
+		</div>
+	</div>
+  </div>
+</div>
+</body>

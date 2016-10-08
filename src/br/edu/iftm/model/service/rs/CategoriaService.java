@@ -9,6 +9,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -38,22 +39,21 @@ public class CategoriaService implements ICategoriaService {
 
 	@Override
 	@DELETE
-	public void excluir(Categoria categoria) {
-		categoriaDao.excluir(categoria);
+	@Path("/{codigo}")
+	public void excluir(@PathParam("codigo") Integer codigo) {
+		categoriaDao.excluir(codigo);
+	}
+	
+	@GET
+	@Override
+	@Path("/{codigo}")
+	public Categoria buscarPorId(@PathParam("codigo") Integer codigo) {
+		return categoriaDao.buscarPorId(codigo);
 	}
 
 	@Override
 	@GET
-	public List<Categoria> buscar(Categoria categoria) {
-		return categoriaDao.buscar(categoria);
-	}
-	
-	@GET
-	@Path("/{codigo}")
-	public Categoria buscar(Integer codigo){
-		Categoria categoria = new Categoria();
-		categoria.setCodigo(codigo);
-		return categoriaDao.buscarPorId(codigo);
-		
+	public List<Categoria> buscarTodos() {
+		return categoriaDao.buscar(new Categoria());
 	}
 }
