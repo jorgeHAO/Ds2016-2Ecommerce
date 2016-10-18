@@ -39,6 +39,18 @@ public class Aluno implements Serializable{
 	
 	@Column(name="NR_RENACH")
 	private Integer nrRenach;
+	
+//    @ManyToOne
+//    @JoinColumn(name="ID_PAGAMENTO",referencedColumnName="ID_PAGAMENTO")
+//    private Pagamento pagamento;
+	
+	public Aluno() {
+		super();
+	}
+	
+	public Aluno(Integer id) {
+		this.idAluno = id;
+	}
 
 	public Integer getIdAluno() {
 		return idAluno;

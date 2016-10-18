@@ -30,6 +30,10 @@ public class Pagamento implements Serializable{
 	
 	@Column(name="DS_PAGAMENTO")
 	private String dsPagamento;
+	
+//    @ManyToOne
+//    @JoinColumn(name="ID_FUNCIONARIO",referencedColumnName="ID_FUNCIONARIO")
+//    private Funcionario funcionario;
 
 	public Integer getIdPagamento() {
 		return idPagamento;

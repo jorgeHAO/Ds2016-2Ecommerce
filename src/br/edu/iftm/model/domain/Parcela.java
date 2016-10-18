@@ -8,8 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -32,10 +30,6 @@ public class Parcela implements Serializable{
 	
 	@Column(name="DT_PAGAMENTO")
 	private Date dtPagamento;
-	
-    @ManyToOne
-    @JoinColumn(name="ID_PAGAMENTO",referencedColumnName="ID_PAGAMENTO")
-    private Pagamento pagamento;
 
 	public Integer getIdParcela() {
 		return idParcela;

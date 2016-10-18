@@ -7,8 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -44,9 +42,9 @@ public class Funcionario implements Serializable{
 	@Column(name="PERFIL")
 	private String perfil;
 	
-    @ManyToOne
-    @JoinColumn(name="ID_AULA",referencedColumnName="ID_AULA")
-    private Aula aula;
+//    @ManyToOne
+//    @JoinColumn(name="ID_AULA",referencedColumnName="ID_AULA")
+//    private Aula aula;
 
 	public Integer getIdFuncionario() {
 		return idFuncionario;
@@ -110,16 +108,6 @@ public class Funcionario implements Serializable{
 
 	public void setPerfil(String perfil) {
 		this.perfil = perfil;
-	}
-
-	public Aula getAula() {
-		return aula;
-	}
-
-	public void setAula(Aula aula) {
-		this.aula = aula;
-	}
-    
-    
+	}    
 
 }
