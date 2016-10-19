@@ -1,113 +1,164 @@
 package br.edu.iftm.model.domain;
 
 import java.io.Serializable;
-
+import java.util.Collection;
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
-@XmlRootElement
+/**
+ *
+ * @author jorge
+ */
 @Entity
-@Table(name="TB_FUNCIONARIO")
-public class Funcionario implements Serializable{
-	private static final long serialVersionUID = 1L;
+@Table(name = "tb_funcionario")
+@XmlRootElement
+public class Funcionario implements Serializable {
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="ID_FUNCIONARIO")
-	private Integer idFuncionario;
-	
-	@Column(name="NOME_FUNCIONARIO")
-	private String nomeFuncionario;
-	
-	@Column(name="CPF")
-	private String cpf;
-	
-	@Column(name="SENHA")
-	private String senha;
-	
-	@Column(name="ENDERECO")
-	private String endereco;
-	
-	@Column(name="TELEFONE")
-	private String telefone;
-	
-	@Column(name="ESCOLARIDADE")
-	private String escolaridade;
-	
-	@Column(name="PERFIL")
-	private String perfil;
-	
-//    @ManyToOne
-//    @JoinColumn(name="ID_AULA",referencedColumnName="ID_AULA")
-//    private Aula aula;
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id_funcionario")
+    private Integer idFuncionario;
+    @Column(name = "nm_funcionario")
+    private String nmFuncionario;
+    @Column(name = "nm_cpf")
+    private String nmCpf;
+    @Column(name = "ds_senha")
+    private String dsSenha;
+    @Column(name = "ds_endereco")
+    private String dsEndereco;
+    @Column(name = "nr_telefone")
+    private String nrTelefone;
+    @Column(name = "ds_escolaridade")
+    private String dsEscolaridade;
+    @Column(name = "nr_perfil")
+    private String nrPerfil;
+    @OneToMany(mappedBy = "idFuncionario")
+    private Collection<Aula> aulaCollection;
+    @OneToMany(mappedBy = "idFuncionario")
+    private Collection<Pagamento> pagamentoCollection;
 
-	public Integer getIdFuncionario() {
-		return idFuncionario;
-	}
+    public Funcionario() {
+    }
 
-	public void setIdFuncionario(Integer idFuncionario) {
-		this.idFuncionario = idFuncionario;
-	}
+    public Funcionario(Integer idFuncionario) {
+        this.idFuncionario = idFuncionario;
+    }
 
-	public String getNomeFuncionario() {
-		return nomeFuncionario;
-	}
+    public Integer getIdFuncionario() {
+        return idFuncionario;
+    }
 
-	public void setNomeFuncionario(String nomeFuncionario) {
-		this.nomeFuncionario = nomeFuncionario;
-	}
+    public void setIdFuncionario(Integer idFuncionario) {
+        this.idFuncionario = idFuncionario;
+    }
 
-	public String getCpf() {
-		return cpf;
-	}
+    public String getNmFuncionario() {
+        return nmFuncionario;
+    }
 
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
+    public void setNmFuncionario(String nmFuncionario) {
+        this.nmFuncionario = nmFuncionario;
+    }
 
-	public String getSenha() {
-		return senha;
-	}
+    public String getNmCpf() {
+        return nmCpf;
+    }
 
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
+    public void setNmCpf(String nmCpf) {
+        this.nmCpf = nmCpf;
+    }
 
-	public String getEndereco() {
-		return endereco;
-	}
+    public String getDsSenha() {
+        return dsSenha;
+    }
 
-	public void setEndereco(String endereco) {
-		this.endereco = endereco;
-	}
+    public void setDsSenha(String dsSenha) {
+        this.dsSenha = dsSenha;
+    }
 
-	public String getTelefone() {
-		return telefone;
-	}
+    public String getDsEndereco() {
+        return dsEndereco;
+    }
 
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
-	}
+    public void setDsEndereco(String dsEndereco) {
+        this.dsEndereco = dsEndereco;
+    }
 
-	public String getEscolaridade() {
-		return escolaridade;
-	}
+    public String getNrTelefone() {
+        return nrTelefone;
+    }
 
-	public void setEscolaridade(String escolaridade) {
-		this.escolaridade = escolaridade;
-	}
+    public void setNrTelefone(String nrTelefone) {
+        this.nrTelefone = nrTelefone;
+    }
 
-	public String getPerfil() {
-		return perfil;
-	}
+    public String getDsEscolaridade() {
+        return dsEscolaridade;
+    }
 
-	public void setPerfil(String perfil) {
-		this.perfil = perfil;
-	}    
+    public void setDsEscolaridade(String dsEscolaridade) {
+        this.dsEscolaridade = dsEscolaridade;
+    }
 
+    public String getNrPerfil() {
+        return nrPerfil;
+    }
+
+    public void setNrPerfil(String nrPerfil) {
+        this.nrPerfil = nrPerfil;
+    }
+
+    @XmlTransient
+    public Collection<Aula> getAulaCollection() {
+        return aulaCollection;
+    }
+
+    public void setAulaCollection(Collection<Aula> aulaCollection) {
+        this.aulaCollection = aulaCollection;
+    }
+
+    @XmlTransient
+    public Collection<Pagamento> getPagamentoCollection() {
+        return pagamentoCollection;
+    }
+
+    public void setPagamentoCollection(Collection<Pagamento> pagamentoCollection) {
+        this.pagamentoCollection = pagamentoCollection;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (idFuncionario != null ? idFuncionario.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Funcionario)) {
+            return false;
+        }
+        Funcionario other = (Funcionario) object;
+        if ((this.idFuncionario == null && other.idFuncionario != null) || (this.idFuncionario != null && !this.idFuncionario.equals(other.idFuncionario))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "br.com.sistemaEcommerce.domain.Funcionario[ idFuncionario=" + idFuncionario + " ]";
+    }
+    
 }

@@ -1,65 +1,103 @@
 package br.edu.iftm.model.domain;
 
 import java.io.Serializable;
-
+import java.util.Collection;
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
-@XmlRootElement
+/**
+ *
+ * @author jorge
+ */
 @Entity
-@Table(name="TB_TIPOPAGAMENTO")
-public class TipoPagamento implements Serializable{
-	
-	private static final long serialVersionUID = 1L;
+@Table(name = "tb_tipo_pagamento")
+@XmlRootElement
+public class TipoPagamento implements Serializable {
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="ID_PAGAMENTO")
-	private Integer idPagamento;
-	
-	@Column(name="TIPO_PAGAMENTO")
-	private String tipoPagamento;
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id_tipo_pagamento")
+    private Integer idTipoPagamento;
+    @Column(name = "ds_tipo_pagamento")
+    private String dsTipoPagamento;
+    @Column(name = "nr_parcelas")
+    private Integer nrParcelas;
+    @OneToMany(mappedBy = "idTipoPagamento")
+    private Collection<Pagamento> pagamentoCollection;
 
-	@Column(name="NR_PARCELAS")
-	private Integer nrParcelas;
-	
-//    @ManyToOne
-//    @JoinColumn(name="ID_PAGAMENTO",referencedColumnName="ID_PAGAMENTO")
-//    private Pagamento pagamento;
+    public TipoPagamento() {
+    }
 
-	public TipoPagamento(){
-		super();
-	}
-	
-	public Integer getIdPagamento() {
-		return idPagamento;
-	}
+    public TipoPagamento(Integer idTipoPagamento) {
+        this.idTipoPagamento = idTipoPagamento;
+    }
 
-	public void setIdPagamento(Integer idPagamento) {
-		this.idPagamento = idPagamento;
-	}
+    public Integer getIdTipoPagamento() {
+        return idTipoPagamento;
+    }
 
-	public String getTipoPagamento() {
-		return tipoPagamento;
-	}
+    public void setIdTipoPagamento(Integer idTipoPagamento) {
+        this.idTipoPagamento = idTipoPagamento;
+    }
 
-	public void setTipoPagamento(String tipoPagamento) {
-		this.tipoPagamento = tipoPagamento;
-	}
+    public String getDsTipoPagamento() {
+        return dsTipoPagamento;
+    }
 
-	public Integer getNrParcelas() {
-		return nrParcelas;
-	}
+    public void setDsTipoPagamento(String dsTipoPagamento) {
+        this.dsTipoPagamento = dsTipoPagamento;
+    }
 
-	public void setNrParcelas(Integer nrParcelas) {
-		this.nrParcelas = nrParcelas;
-	}
+    public Integer getNrParcelas() {
+        return nrParcelas;
+    }
 
-	
-	
+    public void setNrParcelas(Integer nrParcelas) {
+        this.nrParcelas = nrParcelas;
+    }
+
+    @XmlTransient
+    public Collection<Pagamento> getPagamentoCollection() {
+        return pagamentoCollection;
+    }
+
+    public void setPagamentoCollection(Collection<Pagamento> pagamentoCollection) {
+        this.pagamentoCollection = pagamentoCollection;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (idTipoPagamento != null ? idTipoPagamento.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof TipoPagamento)) {
+            return false;
+        }
+        TipoPagamento other = (TipoPagamento) object;
+        if ((this.idTipoPagamento == null && other.idTipoPagamento != null) || (this.idTipoPagamento != null && !this.idTipoPagamento.equals(other.idTipoPagamento))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "br.com.sistemaEcommerce.domain.TipoPagamento[ idTipoPagamento=" + idTipoPagamento + " ]";
+    }
+    
 }

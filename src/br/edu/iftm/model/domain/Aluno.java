@@ -1,110 +1,148 @@
 package br.edu.iftm.model.domain;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Collection;
+import java.util.Date;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
-@XmlRootElement
+/**
+ *
+ * @author jorge
+ */
 @Entity
-@Table(name="TB_ALUNO")
-public class Aluno implements Serializable{
-	private static final long serialVersionUID = 1L;
+@Table(name = "tb_aluno")
+@XmlRootElement
+public class Aluno implements Serializable {
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="ID_ALUNO")
-	private Integer idAluno;
-	
-	@Column(name="NM_ALUNO")
-	private String nmAluno;
-	
-	@Column(name="CPF")
-	private String cpf;
-	
-	@Column(name="ENDERECO")
-	private String endereco;
-	
-	@Column(name="TELEFONE")
-	private String telefone;
-	
-	@Column(name="DT_NASCIMENTO")
-	private Date dtNascimento;
-	
-	@Column(name="NR_RENACH")
-	private Integer nrRenach;
-	
-//    @ManyToOne
-//    @JoinColumn(name="ID_PAGAMENTO",referencedColumnName="ID_PAGAMENTO")
-//    private Pagamento pagamento;
-	
-	public Aluno() {
-		super();
-	}
-	
-	public Aluno(Integer id) {
-		this.idAluno = id;
-	}
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id_aluno")
+    private Integer idAluno;
+    @Column(name = "nm_pessoa")
+    private String nmPessoa;
+    @Column(name = "nm_cpf")
+    private String nmCpf;
+    @Column(name = "ds_endereco")
+    private String dsEndereco;
+    @Column(name = "nr_telefone")
+    private String nrTelefone;
+    @Column(name = "dt_nascimento")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dtNascimento;
+    @Column(name = "nr_prenach")
+    private Integer nrPrenach;
+    @OneToMany(mappedBy = "idAluno")
+    private Collection<CategoriaAluno> categoriaAlunoCollection;
 
-	public Integer getIdAluno() {
-		return idAluno;
-	}
+    public Aluno() {
+    }
 
-	public void setIdAluno(Integer idAluno) {
-		this.idAluno = idAluno;
-	}
+    public Aluno(Integer idAluno) {
+        this.idAluno = idAluno;
+    }
 
-	public String getNmAluno() {
-		return nmAluno;
-	}
+    public Integer getIdAluno() {
+        return idAluno;
+    }
 
-	public void setNmAluno(String nmAluno) {
-		this.nmAluno = nmAluno;
-	}
+    public void setIdAluno(Integer idAluno) {
+        this.idAluno = idAluno;
+    }
 
-	public String getCpf() {
-		return cpf;
-	}
+    public String getNmPessoa() {
+        return nmPessoa;
+    }
 
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
+    public void setNmPessoa(String nmPessoa) {
+        this.nmPessoa = nmPessoa;
+    }
 
-	public String getEndereco() {
-		return endereco;
-	}
+    public String getNmCpf() {
+        return nmCpf;
+    }
 
-	public void setEndereco(String endereco) {
-		this.endereco = endereco;
-	}
+    public void setNmCpf(String nmCpf) {
+        this.nmCpf = nmCpf;
+    }
 
-	public String getTelefone() {
-		return telefone;
-	}
+    public String getDsEndereco() {
+        return dsEndereco;
+    }
 
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
-	}
+    public void setDsEndereco(String dsEndereco) {
+        this.dsEndereco = dsEndereco;
+    }
 
-	public Date getDtNascimento() {
-		return dtNascimento;
-	}
+    public String getNrTelefone() {
+        return nrTelefone;
+    }
 
-	public void setDtNascimento(Date dtNascimento) {
-		this.dtNascimento = dtNascimento;
-	}
+    public void setNrTelefone(String nrTelefone) {
+        this.nrTelefone = nrTelefone;
+    }
 
-	public Integer getNrRenach() {
-		return nrRenach;
-	}
+    public Date getDtNascimento() {
+        return dtNascimento;
+    }
 
-	public void setNrRenach(Integer nrRenach) {
-		this.nrRenach = nrRenach;
-	}
+    public void setDtNascimento(Date dtNascimento) {
+        this.dtNascimento = dtNascimento;
+    }
+
+    public Integer getNrPrenach() {
+        return nrPrenach;
+    }
+
+    public void setNrPrenach(Integer nrPrenach) {
+        this.nrPrenach = nrPrenach;
+    }
+
+    @XmlTransient
+    public Collection<CategoriaAluno> getCategoriaAlunoCollection() {
+        return categoriaAlunoCollection;
+    }
+
+    public void setCategoriaAlunoCollection(Collection<CategoriaAluno> categoriaAlunoCollection) {
+        this.categoriaAlunoCollection = categoriaAlunoCollection;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (idAluno != null ? idAluno.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Aluno)) {
+            return false;
+        }
+        Aluno other = (Aluno) object;
+        if ((this.idAluno == null && other.idAluno != null) || (this.idAluno != null && !this.idAluno.equals(other.idAluno))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "br.com.sistemaEcommerce.domain.Aluno[ idAluno=" + idAluno + " ]";
+    }
+    
 }
