@@ -1,8 +1,8 @@
-var app = angular.module('clienteModule',[]);
+var app = angular.module('alunoModule',[]);
 
-app.controller('clienteControl',function($scope,$http){
+app.controller('alunoControl',function($scope,$http){
 	
-	var url = 'http://localhost:8080/SistemaEcommerce/rs/cliente';
+	var url = 'http://localhost:8080/DS2016-2Ecommerce/rs/aluno';
 	
 	//$scope.clientes = [{'codigo':1,'nome':'Cliente 1','cargo':'professor','endereco':'rua aqui','cidade':'Udia',
 	//					'cep':'38400420','pais':'Brasil','telefone':'12345678','fax':'23456'},
@@ -11,33 +11,33 @@ app.controller('clienteControl',function($scope,$http){
 	//				  ];
 					  
 	$scope.novo = function() {
-		$scope.cliente = {};
+		$scope.aluno = {};
 	}
 	
 	$scope.salvar = function() {
-		$http.post(url,$scope.cliente).success(function (clientesRetorno) {
-			$scope.clientes.push(clientesRetorno);
+		$http.post(url,$scope.aluno).success(function (alunosRetorno) {
+			$scope.alunos.push(alunosRetorno);
 		}).error(function (mensagemErro) {
 			alert(mensagemErro);
 		});
-		$scope.clientes.push($scope.cliente);
+		$scope.alunos.push($scope.aluno);
 		$scope.novo();
 	}
 	
 	$scope.excluir = function() {
-		var urlDelete = 'http://localhost:8080/SistemaEcommerce/rs/cliente/' + $scope.cliente.codigo;
+		var urlDelete = 'http://127.0.0.1:8080/DS2016-2Ecommerce/rs/aluno/' + $scope.aluno.codigo;
 		$http.delete(urlDelete).success(function () {
 			$scope.novo();
 		}).error(function (mensagemErro) {
 			alert(mensagemErro);
 		});
-		$scope.clientes.splice($scope.clientes.indexOf($scope.cliente),1);
+		$scope.alunos.splice($scope.alunos.indexOf($scope.aluno),1);
 		$scope.novo();
 	}
 	
 	$scope.pesquisar = function() {
-		$http.get(url).success(function (clientesRetorno) {
-			$scope.clientes = clientesRetorno;
+		$http.get(url).success(function (alunosRetorno) {
+			$scope.alunos = alunosRetorno;
 		}).error(function (mensagemErro) {
 			alert(mensagemErro);
 		});
@@ -45,8 +45,8 @@ app.controller('clienteControl',function($scope,$http){
 	
 	$scope.pesquisar();
 	
-	$scope.seleciona = function(clienteTabela) {
-		$scope.cliente = clienteTabela;
+	$scope.seleciona = function(alunoTabela) {
+		$scope.aluno = alunoTabela;
 	}
 	
 });

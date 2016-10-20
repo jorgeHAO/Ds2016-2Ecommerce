@@ -1,46 +1,104 @@
 <!DOCTYPE html>
 <html ng-app="clienteModule">
 <head>
-	<meta charset="utf-8"/>
+	<meta charset="utf-8">
 	<title>Cliente</title>
-	<link rel="stylesheet" href="css/bootstrap.min.css"></link>
-	<script src="js/jquery-3.1.1.min.js"></script>
-	<script src="js/bootstrap.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<script src="js/angular.min.js"></script>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="control/clienteControl.js"></script>
 </head>
 <body ng-controller="clienteControl">
-<div ng-include src="'menu.html'"></div>
-<div class="panel panel-default">
-  <div class="panel-body">
-	<div>
-		<ul class="nav nav-tabs" role="tablist">
-			<li role="presentation" class="active"><a href="#cadastro" role="tab" data-toggle="tab">Cadastro</a></li>
-			<li role="presentation"><a href="#dados" aria-controls="dados" role="tab" data-toggle="tab">Dados</a></li>
-		</ul>
-		
-		<div class="tab-content">
-			<div role="tabpanel" class="tab-pane active" id="cadastro">
-			<br>				
-				<form>
-					<div class="form-group">
-						<button type="button" ng-click="novo()" class="btn btn-info">Novo</button>
-						<button type="submit" ng-click="salvar()" class="btn btn-success">Salvar</button>
-						<button type="button" ng-click="excluir()" class="btn btn-danger">Excluir</button>
-						<button type="button" ng-click="pesquisar()" class="btn btn-warning">Pesquisar</button>
-					</div>	
-				  <hr/>	
-				  <div class="form-group col-md-2">
-					<label for="inputCodigo">Código:</label>
-					<input type="number" class="form-control" disabled="true" ng-model="cliente.codigo" id="inputCodigo" placeholder="Código do cliente">
-				  </div>
-				  <div class="form-group col-md-6">
-					<label for="inputNome">Nome:</label>
-					<input type="text" class="form-control" ng-model="cliente.nome" id="inputNome" placeholder="Insira o nome">
-				  </div>				  
-				</form>
-				
+	<div ng-include="'menu.html'"></div>
+	<!--<img src="img/logo.png" class="img-responsive" alt="Responsive image">-->
+	<div class="panel panel-default">
+		<div class="panel-heading">Cadastro de cliente</div>
+		<div class="panel-body">
+			<div>
+			  <!-- Nav tabs -->
+			  <ul class="nav nav-tabs" role="tablist">
+			    <li role="presentation" class="active">
+			    	<a href="#cadastro" aria-controls="cadastro" role="tab" data-toggle="tab">Cadastro</a>
+			    </li>
+			    <li role="presentation">
+			    	<a href="#dados" aria-controls="dados" role="tab" data-toggle="tab">Dados</a>
+			    </li>
+			  </ul>
+			  <!-- Tab panes -->
+			  <div class="tab-content">
+			    <div role="tabpanel" class="tab-pane active" id="cadastro">
+					<br>
+					<button type="button" class="btn btn-info" ng-click="novo()">Novo</button>
+					<button type="button" class="btn btn-success" ng-click="salvar()">Salvar</button>
+					<button type="button" class="btn btn-danger" ng-click="excluir()">Excluir</button>
+					<button type="button" class="btn btn-warning" ng-click="pesquisar()">Pesqusiar</button>
+					<hr/>
+					
+			    	<form>
+					  <div class="form-group col-md-2">
+					    <label for="exampleInputCodigo">Codigo</label>
+					    <input type="text" disabled="true" class="form-control" ng-model="cliente.codigo" placeholder="Codigo">
+					  </div>
+					  
+					  <div class="form-group col-md-6">
+					    <label for="exampleInputNome">Nome</label>
+					    <input type="text" class="form-control" ng-model="cliente.nome" placeholder="Insira o Nome">
+					  </div>
+					  
+					  <div class="form-group col-md-4">
+					    <label for="exampleInputCargo">Cargo</label>
+					    <input type="text" class="form-control" ng-model="cliente.cargo" placeholder="Insira o Cargo">
+					  </div>
+
+					  <div class="form-group col-md-4">
+					    <label for="exampleInputEndereco">Endereco</label>
+					    <input type="text" class="form-control" ng-model="cliente.endereco" placeholder="Insira o Endereco">
+					  </div>
+
+					  <div class="form-group col-md-4">
+					    <label for="exampleInputCidade">Cidade</label>
+					    <input type="text" class="form-control" ng-model="cliente.cidade" placeholder="Insira a Cidade">
+					  </div>
+
+					  <div class="form-group col-md-2">
+					    <label for="exampleInputCep">Cep</label>
+					    <input type="text" class="form-control" ng-model="cliente.cep" placeholder="Insira o Cep">
+					  </div>
+
+					  <div class="form-group col-md-4">
+					    <label for="exampleInputPais">Pais</label>
+					    <input type="text" class="form-control" ng-model="cliente.pais" placeholder="Insira o Pais">
+					  </div>
+
+					  <div class="form-group col-md-4">
+					    <label for="exampleInputTelefone">Telefone</label>
+					    <input type="text" class="form-control" ng-model="cliente.telefone" placeholder="Insira o Telefone">
+					  </div>
+
+					  <div class="form-group col-md-4">
+					    <label for="exampleInputFax">Fax</label>
+					    <input type="text" class="form-control" ng-model="cliente.fax" placeholder="Insira o Fax">
+					  </div>
+					</form>
+			    </div>
+			    <div role="tabpanel" class="tab-pane" id="dados">
+				<br>
+				<input type="text" class="form-control" ng-model="criterio" placeholder="O que voce esta procurando?"/>
+				<br>
+			    	<table class="table table-hover">
+			    		<th>Codigo</th><th>Nome</th><th>Cargo</th><th>Endereco</th><th>Cidade</th><th>CEP</th><th>Pais</th><th>Telefone</th><th>Fax</th>
+
+			    		<tr ng-repeat="clienteTabela in clientes | filter:criterio" ng-click="seleciona(clienteTabela);">
+			    			<td>{{clienteTabela.codigo}}</td><td>{{clienteTabela.nome}}</td><td>{{clienteTabela.cargo}}</td><td>{{clienteTabela.endereco}}</td>
+			    			<td>{{clienteTabela.cidade}}</td><td>{{clienteTabela.cep}}</td><td>{{clienteTabela.pais}}</td><td>{{clienteTabela.telefone}}</td>
+			    			<td>{{clienteTabela.fax}}</td>
+			    		</tr>
+					</table>
+			    </div>
+			  </div>
 			</div>
 		</div>
 	</div>
-  </div>
-</div>
 </body>
+</html>
