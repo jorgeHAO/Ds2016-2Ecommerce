@@ -1,5 +1,7 @@
 package br.edu.iftm.model.service.rs;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -28,6 +30,15 @@ public class AlunoService implements IAlunoService {
 	@Override
 	@POST
 	public void salvar(Aluno aluno) {
+
+		if(aluno.getDtNascimentoStr() != null && !aluno.getDtNascimentoStr().isEmpty()){
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
+			try {
+				aluno.setDtNascimento(sdf.parse(aluno.getDtNascimentoStr()));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
 		alunoDao.salvar(aluno);
 	}
 

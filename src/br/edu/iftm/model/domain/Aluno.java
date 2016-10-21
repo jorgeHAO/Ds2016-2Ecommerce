@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -43,12 +44,22 @@ public class Aluno implements Serializable {
     @Column(name = "dt_nascimento")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dtNascimento;
+    @Transient
+    private String dtNascimentoStr;
     @Column(name = "nr_prenach")
     private Integer nrPrenach;
     @OneToMany(mappedBy = "idAluno")
     private Collection<CategoriaAluno> categoriaAlunoCollection;
 
-    public Aluno() {
+    public String getDtNascimentoStr() {
+		return dtNascimentoStr;
+	}
+
+	public void setDtNascimentoStr(String dtNascimentoStr) {
+		this.dtNascimentoStr = dtNascimentoStr;
+	}
+
+	public Aluno() {
     }
 
     public Aluno(Integer idAluno) {
