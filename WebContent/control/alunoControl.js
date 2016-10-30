@@ -1,52 +1,70 @@
 var app = angular.module('alunoModule',[]);
-
 app.controller('alunoControl',function($scope,$http){
 	
-	var url = 'http://localhost:8080/DS2016-2Ecommerce/rs/aluno';
+	url = 'http://localhost:8080/DS2016-2Ecommerce/rs/aluno';
 	
-	//$scope.clientes = [{'codigo':1,'nome':'Cliente 1','cargo':'professor','endereco':'rua aqui','cidade':'Udia',
-	//					'cep':'38400420','pais':'Brasil','telefone':'12345678','fax':'23456'},
-	//				  {'codigo':2,'nome':'Cliente 2','cargo':'analista mp3','endereco':'rua la','cidade':'Udia',
-	//					'cep':'38400421','pais':'Brasil','telefone':'87654321','fax':'12345'}
-	//				  ];
-					  
-	$scope.novo = function() {
-		$scope.aluno = {};
+	$scope.salvar = function() {	
+		if ($scope.aluno.idAluno == undefined || $scope.aluno.idAluno == '') {    		
+			$http.post(url,$scope.aluno).success(function(alunosRetorno) {				
+				$scope.alunos.push(alunosRetorno);
+				$scope.novo();
+				$scope.mensagens.push('Aluno salvo com sucesso');
+			}).error(function (erro) {
+				//$scope.mensagens.push('Erro ao salvar Aluno: '+JSON.stringify(erro));
+				$scope.montaMensagemErro(erro.parameterViolations);
+			});
+		} else {
+			$http.put(url,$scope.aluno).success(function(aluno) {
+				$scope.pesquisar();
+				$scope.novo();
+				$scope.mensagens.push('Aluno atualizado com sucesso');
+			}).error(function (erro) {				
+				$scope.montaMensagemErro(erro.parameterViolations);
+			});
+		}
 	}
 	
-	$scope.salvar = function() {
-		$http.post(url,$scope.aluno).success(function (alunosRetorno) {
-			$scope.alunos.push(alunosRetorno);
-		}).error(function (mensagemErro) {
-			alert(mensagemErro);
+	$scope.montaMensagemErro = function(listaErro) {
+		$scope.mensagens = [];
+		$scope.mensagens.push('Falha de validação retornada do servidor');
+		angular.forEach(listaErro, function(value, key){
+			 $scope.mensagens.push(value.message);
 		});
-		$scope.alunos.push($scope.aluno);
-		$scope.novo();
-	}
-	
-	$scope.excluir = function() {
-		var urlDelete = 'http://127.0.0.1:8080/DS2016-2Ecommerce/rs/aluno/' + $scope.aluno.codigo;
-		$http.delete(urlDelete).success(function () {
-			$scope.novo();
-		}).error(function (mensagemErro) {
-			alert(mensagemErro);
-		});
-		$scope.alunos.splice($scope.alunos.indexOf($scope.aluno),1);
-		$scope.novo();
 	}
 	
 	$scope.pesquisar = function() {
-		$http.get(url).success(function (alunosRetorno) {
-			$scope.alunos = alunosRetorno;
-		}).error(function (mensagemErro) {
-			alert(mensagemErro);
+		$http.get(url).success(function (alunos) {
+			$scope.alunos = alunos;
+		}).error(function (erro) {
+			alert(erro);
 		});
 	}
 	
-	$scope.pesquisar();
-	
-	$scope.seleciona = function(alunoTabela) {
-		$scope.aluno = alunoTabela;
+	$scope.excluir = function() {
+		if ($scope.aluno.idAluno == undefined || $scope.aluno.idAluno == '') {
+			$scope.mensagens.push('Selecione um Aluno');
+		} else {
+			$http.delete(url+"/"+$scope.aluno.idAluno).success(function() {
+				$scope.alunos.splice($scope.alunos.indexOf($scope.aluno), 1);	
+				$scope.novo();
+				$scope.mensagens.push('Aluno excluído com sucesso');
+			}).error(function (erro) {
+				//$scope.mensagens.push('Erro ao salvar Aluno: '+JSON.stringify(erro));
+				$scope.montaMensagemErro(erro.parameterViolations);
+			});
+		}
 	}
+	
+	$scope.novo = function() {
+		$scope.aluno = {};
+		$scope.mensagens=[];
+	}
+	
+	$scope.seleciona = function(aluno) {
+		$scope.aluno = aluno;
+	}
+	
+	$scope.pesquisar();
+	$scope.novo();
 	
 });

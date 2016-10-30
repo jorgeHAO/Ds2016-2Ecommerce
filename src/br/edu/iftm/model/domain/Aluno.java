@@ -15,6 +15,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -33,8 +35,12 @@ public class Aluno implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_aluno")
     private Integer idAluno;
+    
+	@NotNull(message="Nome da pessoa não pode ser vazio")
     @Column(name = "nm_pessoa")
     private String nmPessoa;
+	
+	@Size(min=11,max=15,message="cpf precisa ter entre {min} e {max} caracteres")
     @Column(name = "nm_cpf")
     private String nmCpf;
     @Column(name = "ds_endereco")
@@ -50,7 +56,15 @@ public class Aluno implements Serializable {
     private Integer nrPrenach;
     @OneToMany(mappedBy = "idAluno")
     private Collection<CategoriaAluno> categoriaAlunoCollection;
-
+    
+	public Aluno() {
+		super();
+    }
+	
+    public Aluno(Integer idAluno) {
+        this.idAluno = idAluno;
+    }
+	
     public String getDtNascimentoStr() {
 		return dtNascimentoStr;
 	}
@@ -58,13 +72,6 @@ public class Aluno implements Serializable {
 	public void setDtNascimentoStr(String dtNascimentoStr) {
 		this.dtNascimentoStr = dtNascimentoStr;
 	}
-
-	public Aluno() {
-    }
-
-    public Aluno(Integer idAluno) {
-        this.idAluno = idAluno;
-    }
 
     public Integer getIdAluno() {
         return idAluno;

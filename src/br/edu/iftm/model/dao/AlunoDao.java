@@ -20,8 +20,9 @@ public class AlunoDao implements IAlunoDao {
 	 */
 	@Override
 	@Transactional
-	public void salvar(Aluno aluno) {
+	public Aluno salvar(Aluno aluno) {
 		entityManager.persist(aluno);
+		return aluno;
 	}
 	
 	/* (non-Javadoc)

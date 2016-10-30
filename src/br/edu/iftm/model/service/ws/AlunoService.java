@@ -19,8 +19,8 @@ public class AlunoService implements IAlunoService {
 	
 	@Override
 	@WebMethod
-	public void salvar(@WebParam(name="aluno") Aluno aluno) {
-		alunoDao.salvar(aluno);
+	public Aluno salvar(@WebParam(name="aluno") Aluno aluno) {
+		return alunoDao.salvar(aluno);
 	}
 	
 	@Override

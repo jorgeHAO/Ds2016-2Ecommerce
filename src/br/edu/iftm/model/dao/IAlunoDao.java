@@ -6,7 +6,7 @@ import br.edu.iftm.model.domain.Aluno;
 
 public interface IAlunoDao {
 
-	void salvar(Aluno aluno);
+	Aluno salvar(Aluno aluno);
 
 	void atualizar(Aluno aluno);
 

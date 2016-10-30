@@ -29,7 +29,7 @@ public class AlunoService implements IAlunoService {
 
 	@Override
 	@POST
-	public void salvar(Aluno aluno) {
+	public Aluno salvar(Aluno aluno) {
 
 		if(aluno.getDtNascimentoStr() != null && !aluno.getDtNascimentoStr().isEmpty()){
 			SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
@@ -39,7 +39,7 @@ public class AlunoService implements IAlunoService {
 				e.printStackTrace();
 			}
 		}
-		alunoDao.salvar(aluno);
+		return alunoDao.salvar(aluno);
 	}
 
 	@Override
