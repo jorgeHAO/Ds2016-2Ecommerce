@@ -6,7 +6,7 @@ import br.edu.iftm.model.domain.Funcionario;
 
 public interface IFuncionarioDao {
 
-	void salvar(Funcionario funcionario);
+	Funcionario salvar(Funcionario funcionario);
 
 	void atualizar(Funcionario funcionario);
 

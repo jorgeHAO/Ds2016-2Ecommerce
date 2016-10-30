@@ -1,20 +1,20 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="alunoModule">
+<html lang="en" ng-app="funcionarioModule">
 <head>
 <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Cadastro de Alunos</title>
+	<title>Cadastro de Funcionarios</title>
 	
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 	
 	<script src="js/angular.min.js"></script>
-	<script src="control/alunoControl.js"></script>
+	<script src="control/funcionarioControl.js"></script>
 
 
 </head>
-<body ng-controller="alunoControl">
+<body ng-controller="funcionarioControl">
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="js/jquery-1.12.2.min.js"></script>
@@ -24,7 +24,7 @@
 	<div ng-include="'menu.html'"></div>
 
 	<div class="panel panel-default">
-		<div class="panel-heading">Cadastro de Alunos</div>
+		<div class="panel-heading">Cadastro de Funcionarios</div>
 		<div class="panel-body">
 			<div>
 				<ul class="nav nav-tabs" role="tablist">
@@ -48,47 +48,51 @@
 							<div class="form-group col-md-2">
 								<label for="exampleInputCodigo">Codigo</label> <input
 									type="text" disabled="true" class="form-control"
-									ng-model="aluno.idAluno" placeholder="Codigo">
+									ng-model="funcionario.idfuncionario" placeholder="Codigo">
 							</div>
 
 							<div class="form-group col-md-6">
 								<label for="exampleInputNome">Nome</label> <input type="text"
-									class="form-control" ng-model="aluno.nmPessoa" id="inputNome"
+									class="form-control" ng-model="funcionario.nmFuncionario" id="inputNome"
 									placeholder="Insira o Nome">
 							</div>
 
 							<div class="form-group col-md-4">
 								<label for="exampleInputCpf">CPF</label> <input type="text"
-									class="form-control" ng-model="aluno.nmCpf" id="inputCpf"
+									class="form-control" ng-model="funcionario.nmCpf" id="inputCpf"
 									placeholder="Insira o CPF">
 							</div>
 
 							<div class="form-group col-md-4">
 								<label for="exampleInputEndereco">Endereco</label> <input
-									type="text" class="form-control" ng-model="aluno.dsEndereco"
+									type="text" class="form-control" ng-model="funcionario.dsEndereco"
 									id="inputEndereco" placeholder="Insira o Endereco">
 							</div>
 
 							<div class="form-group col-md-4">
-								<label for="exampleInputDtNascimento">Data Nascimento</label> 
-								<input data-format="dd/MM/yyyy"
-									type="text" class="form-control"
-									ng-model="aluno.dtNascimentoStr" id="inputDtNascimento"
-									placeholder="Insira a Data de Nascimento">
+								<label for="exampleInputEscolaridade">Escolaridade</label> <input
+									type="text" class="form-control" ng-model="funcionario.dsEscolaridade"
+									id="inputEscolaridade" placeholder="Insira a Escolaridade">
 							</div>
 							
 
 							<div class="form-group col-md-2">
 								<label for="exampleInputTelefone">Telefone</label> <input
-									type="text" class="form-control" ng-model="aluno.nrTelefone"
+									type="text" class="form-control" ng-model="funcionario.nrTelefone"
 									id="inputTelefone" placeholder="Insira o Telefone">
 							</div>
 
 							<div class="form-group col-md-2">
-								<label for="exampleInputRenach">Renach.</label> <input
-									type="text" class="form-control" ng-model="aluno.nrPrenach"
-									id="inputRenach"
-									placeholder="Registro Nacional de Condutores Habilitados">
+								<label for="exampleInputSenha">Senha</label> <input
+									type="text" class="form-control" ng-model="funcionario.dsSenha"
+									id="inputSenha"
+									placeholder="Senha">
+							</div>
+							<div class="form-group col-md-2">
+								<label for="exampleInputPerfil">Perfil</label> <input
+									type="text" class="form-control" ng-model="funcionario.nrPerfil"
+									id="inputSenha"
+									placeholder="Perfil">
 							</div>
 						</form>
 					</div>
@@ -103,24 +107,26 @@
 							<th>Nome</th>
 							<th>CPF</th>
 							<th>Endereco</th>
-							<th>Data Nascimento</th>
+							<th>Escolaridade</th>
 							<th>Telefone</th>
-							<th>Renach.(Registro Nacional de Condutores Habilitados)</th>
+							<th>Senha</th>
+							<th>Perfil</th>
 							</tr>
 							<tbody>
-							<tr ng-repeat="alunoTabela in alunos | filter:criterio"
-								ng-click="seleciona(alunoTabela)">
-								<td>{{alunoTabela.idAluno}}</td>
-								<td>{{alunoTabela.nmPessoa}}</td>
-								<td>{{alunoTabela.nmCpf}}</td>
-								<td>{{alunoTabela.dsEndereco}}</td>
-								<td>{{alunoTabela.dtNascimentoStr}}</td>
-								<td>{{alunoTabela.nrTelefone}}</td>
-								<td>{{alunoTabela.nrPrenach}}</td>
+							<tr ng-repeat="funcionarioTabela in funcionarios | filter:criterio"
+								ng-click="seleciona(funcionarioTabela)">
+								<td>{{funcionarioTabela.idFuncionario}}</td>
+								<td>{{funcionarioTabela.nmFuncionario}}</td>
+								<td>{{funcionarioTabela.nmCpf}}</td>
+								<td>{{funcionarioTabela.dsEndereco}}</td>
+								<td>{{funcionarioTabela.dsEscolaridade}}</td>
+								<td>{{funcionarioTabela.nrTelefone}}</td>
+								<td>{{funcionarioTabela.dsSenha}}</td>
+								<td>{{funcionarioTabela.nrPerfil}}</td>
 							</tr>
 							</tbody>
 						</table>
-						<span ng-show="(alunos | filter:criterio).length == 0">Infelizmente
+						<span ng-show="(funcionarios | filter:criterio).length == 0">Infelizmente
 							não temos o item que você está procurando!</span>
 					</div>
 				</div>

@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -28,10 +30,16 @@ public class Funcionario implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_funcionario")
     private Integer idFuncionario;
+    
+    @NotNull(message="Nome do Funcionario não pode ser vazio")
     @Column(name = "nm_funcionario")
     private String nmFuncionario;
+    
+    @Size(min=11,max=15,message="cpf precisa ter entre {min} e {max} caracteres")
     @Column(name = "nm_cpf")
     private String nmCpf;
+    
+    @Size(min=5,max=10,message="a senha precisa ter entre {min} e {max} caracteres")
     @Column(name = "ds_senha")
     private String dsSenha;
     @Column(name = "ds_endereco")

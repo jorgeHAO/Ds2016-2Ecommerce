@@ -19,8 +19,9 @@ public class FuncionarioDao implements IFuncionarioDao {
 	 */
 	@Override
 	@Transactional
-	public void salvar(Funcionario funcionario) {
+	public Funcionario salvar(Funcionario funcionario) {
 		entityManager.persist(funcionario);
+		return funcionario;
 	}
 	
 	/* (non-Javadoc)
