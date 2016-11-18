@@ -35,7 +35,7 @@ public class Categoria implements Serializable {
     private Collection<Materia> materiaCollection;
     @OneToMany(mappedBy = "idCategoria")
     private Collection<CategoriaAluno> categoriaAlunoCollection;
-    @OneToMany(mappedBy = "idCategoria")
+    @OneToMany(mappedBy = "categoria")
     private Collection<Simulado> simuladoCollection;
 
     public Categoria() {

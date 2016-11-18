@@ -17,6 +17,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -38,6 +39,10 @@ public class Simulado implements Serializable {
     @Column(name = "dt_aplicacao")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dtAplicacao;
+    @NotNull(message="Descrição do simulado não pode ser vazio")
+    @Column(name = "ds_simulado")
+    private String dsSimulado;
+
     @JoinTable(name = "tb_selecao", joinColumns = {
         @JoinColumn(name = "id_simulado", referencedColumnName = "id_simulado")}, inverseJoinColumns = {
         @JoinColumn(name = "id_pergunta", referencedColumnName = "id_pergunta")})
@@ -47,7 +52,7 @@ public class Simulado implements Serializable {
     private Collection<Nota> notaCollection;
     @JoinColumn(name = "id_categoria", referencedColumnName = "id_categoria")
     @ManyToOne
-    private Categoria idCategoria;
+    private Categoria categoria;
 
     public Simulado() {
     }
@@ -90,12 +95,12 @@ public class Simulado implements Serializable {
         this.notaCollection = notaCollection;
     }
 
-    public Categoria getIdCategoria() {
-        return idCategoria;
+    public Categoria getCategoria() {
+        return categoria;
     }
 
-    public void setIdCategoria(Categoria idCategoria) {
-        this.idCategoria = idCategoria;
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
 
     @Override
