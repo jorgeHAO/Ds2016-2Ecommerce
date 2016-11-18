@@ -3,6 +3,7 @@ package br.edu.iftm.model.domain;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,127 +28,134 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 public class Pagamento implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id_pagamento")
-    private Integer idPagamento;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "vl_pagamento")
-    private Float vlPagamento;
-    @Column(name = "dt_pagamento")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date dtPagamento;
-    @Column(name = "ds_pagamento")
-    private String dsPagamento;
-    @JoinColumn(name = "id_tipo_pagamento", referencedColumnName = "id_tipo_pagamento")
-    @ManyToOne
-    private TipoPagamento idTipoPagamento;
-    @JoinColumn(name = "id_funcionario", referencedColumnName = "id_funcionario")
-    @ManyToOne
-    private Funcionario idFuncionario;
-    @JoinColumn(name = "id_categoria_aluno", referencedColumnName = "id_categoria_aluno")
-    @ManyToOne
-    private CategoriaAluno idCategoriaAluno;
-    @OneToMany(mappedBy = "idPagamento")
-    private Collection<Parcela> parcelaCollection;
+	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Basic(optional = false)
+	@Column(name = "id_pagamento")
+	private Integer idPagamento;
 
-    public Pagamento() {
-    }
+	@Column(name = "vl_pagamento")
+	private Float vlPagamento;
 
-    public Pagamento(Integer idPagamento) {
-        this.idPagamento = idPagamento;
-    }
+	@Column(name = "dt_pagamento")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dtPagamento;
 
-    public Integer getIdPagamento() {
-        return idPagamento;
-    }
+	@Column(name = "ds_pagamento")
+	private String dsPagamento;
 
-    public void setIdPagamento(Integer idPagamento) {
-        this.idPagamento = idPagamento;
-    }
+	@JoinColumn(name = "id_tipo_pagamento", referencedColumnName = "id_tipo_pagamento")
+	@ManyToOne
+	private TipoPagamento idTipoPagamento;
 
-    public Float getVlPagamento() {
-        return vlPagamento;
-    }
+	@JoinColumn(name = "id_funcionario", referencedColumnName = "id_funcionario")
+	@ManyToOne
+	private Funcionario idFuncionario;
 
-    public void setVlPagamento(Float vlPagamento) {
-        this.vlPagamento = vlPagamento;
-    }
+	@JoinColumn(name = "id_categoria_aluno", referencedColumnName = "id_categoria_aluno")
+	@ManyToOne
+	private CategoriaAluno idCategoriaAluno;
 
-    public Date getDtPagamento() {
-        return dtPagamento;
-    }
+	@OneToMany(mappedBy = "idPagamento")
+	private Collection<Parcela> parcelaCollection;
 
-    public void setDtPagamento(Date dtPagamento) {
-        this.dtPagamento = dtPagamento;
-    }
+	public Pagamento() {
+		super();
+	}
 
-    public String getDsPagamento() {
-        return dsPagamento;
-    }
+	public Pagamento(Integer idPagamento) {
+		this.idPagamento = idPagamento;
+	}
 
-    public void setDsPagamento(String dsPagamento) {
-        this.dsPagamento = dsPagamento;
-    }
+	public Integer getIdPagamento() {
+		return idPagamento;
+	}
 
-    public TipoPagamento getIdTipoPagamento() {
-        return idTipoPagamento;
-    }
+	public void setIdPagamento(Integer idPagamento) {
+		this.idPagamento = idPagamento;
+	}
 
-    public void setIdTipoPagamento(TipoPagamento idTipoPagamento) {
-        this.idTipoPagamento = idTipoPagamento;
-    }
+	public Float getVlPagamento() {
+		return vlPagamento;
+	}
 
-    public Funcionario getIdFuncionario() {
-        return idFuncionario;
-    }
+	public void setVlPagamento(Float vlPagamento) {
+		this.vlPagamento = vlPagamento;
+	}
 
-    public void setIdFuncionario(Funcionario idFuncionario) {
-        this.idFuncionario = idFuncionario;
-    }
+	public Date getDtPagamento() {
+		return dtPagamento;
+	}
 
-    public CategoriaAluno getIdCategoriaAluno() {
-        return idCategoriaAluno;
-    }
+	public void setDtPagamento(Date dtPagamento) {
+		this.dtPagamento = dtPagamento;
+	}
 
-    public void setIdCategoriaAluno(CategoriaAluno idCategoriaAluno) {
-        this.idCategoriaAluno = idCategoriaAluno;
-    }
+	public String getDsPagamento() {
+		return dsPagamento;
+	}
 
-    @XmlTransient
-    public Collection<Parcela> getParcelaCollection() {
-        return parcelaCollection;
-    }
+	public void setDsPagamento(String dsPagamento) {
+		this.dsPagamento = dsPagamento;
+	}
 
-    public void setParcelaCollection(Collection<Parcela> parcelaCollection) {
-        this.parcelaCollection = parcelaCollection;
-    }
+	public TipoPagamento getIdTipoPagamento() {
+		return idTipoPagamento;
+	}
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (idPagamento != null ? idPagamento.hashCode() : 0);
-        return hash;
-    }
+	public void setIdTipoPagamento(TipoPagamento idTipoPagamento) {
+		this.idTipoPagamento = idTipoPagamento;
+	}
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Pagamento)) {
-            return false;
-        }
-        Pagamento other = (Pagamento) object;
-        if ((this.idPagamento == null && other.idPagamento != null) || (this.idPagamento != null && !this.idPagamento.equals(other.idPagamento))) {
-            return false;
-        }
-        return true;
-    }
+	public Funcionario getIdFuncionario() {
+		return idFuncionario;
+	}
 
-    @Override
-    public String toString() {
-        return "br.com.sistemaEcommerce.domain.Pagamento[ idPagamento=" + idPagamento + " ]";
-    }
-    
+	public void setIdFuncionario(Funcionario idFuncionario) {
+		this.idFuncionario = idFuncionario;
+	}
+
+	public CategoriaAluno getIdCategoriaAluno() {
+		return idCategoriaAluno;
+	}
+
+	public void setIdCategoriaAluno(CategoriaAluno idCategoriaAluno) {
+		this.idCategoriaAluno = idCategoriaAluno;
+	}
+
+	@XmlTransient
+	public Collection<Parcela> getParcelaCollection() {
+		return parcelaCollection;
+	}
+
+	public void setParcelaCollection(Collection<Parcela> parcelaCollection) {
+		this.parcelaCollection = parcelaCollection;
+	}
+
+	@Override
+	public int hashCode() {
+		int hash = 0;
+		hash += (idPagamento != null ? idPagamento.hashCode() : 0);
+		return hash;
+	}
+
+	@Override
+	public boolean equals(Object object) {
+		if (!(object instanceof Pagamento)) {
+			return false;
+		}
+		Pagamento other = (Pagamento) object;
+		if ((this.idPagamento == null && other.idPagamento != null)
+				|| (this.idPagamento != null && !this.idPagamento.equals(other.idPagamento))) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "br.com.sistemaEcommerce.domain.Pagamento[ idPagamento=" + idPagamento + " ]";
+	}
+
 }
