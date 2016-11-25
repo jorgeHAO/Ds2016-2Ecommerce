@@ -1,7 +1,5 @@
 package br.edu.iftm.model.service.rs;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -15,8 +13,9 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import br.edu.iftm.model.dao.IAlunoDao;
-import br.edu.iftm.model.domain.Aluno;
+import br.edu.iftm.model.dao.ITipoPagamentoDao;
+import br.edu.iftm.model.domain.TipoPagamento;
+import br.edu.iftm.model.service.ITipoPagamentoService;
 
 /**
  * @author alan.franco
@@ -25,44 +24,63 @@ import br.edu.iftm.model.domain.Aluno;
 @Path("/tipoPagamento")
 @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-public class TipoPagamentoService {
+public class TipoPagamentoService implements ITipoPagamentoService {
+
+	public TipoPagamentoService() {
+		super();
+	}
 
 	@Inject
-	private IAlunoDao alunoDao;
+	private ITipoPagamentoDao tipoPagamentoDao;
 
+	/* (non-Javadoc)
+	 * @see br.edu.iftm.model.service.rs.ITipoPagamentoService#salvar(br.edu.iftm.model.domain.TipoPagamento)
+	 */
+	@Override
 	@POST
-	public Aluno salvar(Aluno aluno) {
-
-		if (aluno.getDtNascimentoStr() != null && !aluno.getDtNascimentoStr().isEmpty()) {
-			SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
-			try {
-				aluno.setDtNascimento(sdf.parse(aluno.getDtNascimentoStr()));
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
+	public TipoPagamento salvar(TipoPagamento tipoPagamento) {
+		if (tipoPagamento.getIdTipoPagamento() != null && tipoPagamento.getIdTipoPagamento() > 0) {
+			tipoPagamentoDao.atualizar(tipoPagamento);
+			return tipoPagamento;
 		}
-		return alunoDao.salvar(aluno);
+		return tipoPagamentoDao.salvar(tipoPagamento);
 	}
 
+	/* (non-Javadoc)
+	 * @see br.edu.iftm.model.service.rs.ITipoPagamentoService#atualizar(br.edu.iftm.model.domain.TipoPagamento)
+	 */
+	@Override
 	@PUT
-	public void atualizar(Aluno aluno) {
-		alunoDao.atualizar(aluno);
+	public void atualizar(TipoPagamento tipoPagamento) {
+		tipoPagamentoDao.atualizar(tipoPagamento);
 	}
 
+	/* (non-Javadoc)
+	 * @see br.edu.iftm.model.service.rs.ITipoPagamentoService#excluir(java.lang.Integer)
+	 */
+	@Override
 	@DELETE
 	@Path("/{codigo}")
 	public void excluir(@PathParam("codigo") Integer codigo) {
-		alunoDao.excluir(codigo);
+		tipoPagamentoDao.excluir(codigo);
 	}
 
+	/* (non-Javadoc)
+	 * @see br.edu.iftm.model.service.rs.ITipoPagamentoService#buscarPorId(java.lang.Integer)
+	 */
+	@Override
 	@GET
 	@Path("/{codigo}")
-	public Aluno buscarPorId(@PathParam("codigo") Integer codigo) {
-		return alunoDao.buscarPorId(codigo);
+	public TipoPagamento buscarPorId(@PathParam("codigo") Integer codigo) {
+		return tipoPagamentoDao.buscarPorId(codigo);
 	}
 
+	/* (non-Javadoc)
+	 * @see br.edu.iftm.model.service.rs.ITipoPagamentoService#buscarTodos()
+	 */
+	@Override
 	@GET
-	public List<Aluno> buscarTodos() {
-		return alunoDao.buscar(new Aluno());
+	public List<TipoPagamento> buscarTodos() {
+		return tipoPagamentoDao.buscar(new TipoPagamento());
 	}
 }
