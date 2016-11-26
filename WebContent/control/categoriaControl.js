@@ -4,7 +4,7 @@ app.controller('categoriaControl',function($scope,$http) {
 	urlcategoria = 'http://127.0.0.1:8080/DS2016-2Ecommerce/rs/categoria';
 	
 	$scope.salvar = function() {
-		if ($scope.categoria.codigo == ''){
+		if ($scope.categoria.idCategoria == ''){
 			$http.post(urlcategoria,$scope.categoria).success(function(categorias){
 				$scope.categorias.push($scope.categoria);
 				$scope.novo();
@@ -30,7 +30,7 @@ app.controller('categoriaControl',function($scope,$http) {
 	}
 	
 	$scope.excluir = function() {
-		if ($scope.categoria.codigo == ''){
+		if ($scope.categoria.idCategoria == ''){
 			alert('Selecione um cliente');
 		} else {
 			urlExcluir = urlcategoria + '/' + $scope.categoria;

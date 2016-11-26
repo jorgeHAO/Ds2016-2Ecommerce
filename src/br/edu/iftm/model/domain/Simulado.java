@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author jorge
+ * @author saulo.borges
  */
 @Entity
 @Table(name = "tb_simulado")
@@ -39,7 +39,7 @@ public class Simulado implements Serializable {
     @Column(name = "dt_aplicacao")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dtAplicacao;
-    @NotNull(message="Descrição do simulado não pode ser vazio")
+    @NotNull(message="Descrição do simulado não pode ser vazia.")
     @Column(name = "ds_simulado")
     private String dsSimulado;
 
@@ -76,8 +76,16 @@ public class Simulado implements Serializable {
     public void setDtAplicacao(Date dtAplicacao) {
         this.dtAplicacao = dtAplicacao;
     }
+    
+    public String getDsSimulado() {
+		return dsSimulado;
+	}
 
-    @XmlTransient
+	public void setDsSimulado(String dsSimulado) {
+		this.dsSimulado = dsSimulado;
+	}
+
+	@XmlTransient
     public Collection<Pergunta> getPerguntaCollection() {
         return perguntaCollection;
     }

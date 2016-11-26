@@ -26,10 +26,10 @@ app.controller('simuladoControl',function($scope,$http){
 	}
 	
 	$scope.montaMensagemErro = function(listaErro) {
-		$scope.mensagens = [];
-		$scope.mensagens.push('Falha de validação retornada do servidor');
+		$scope.mensagensErro = [];
+		$scope.mensagensErro.push('Falha de validação retornada do servidor');
 		angular.forEach(listaErro, function(value, key){
-			 $scope.mensagens.push(value.message);
+			 $scope.mensagensErro.push(value.message);
 		});
 	}
 	
