@@ -1,6 +1,5 @@
 package br.edu.iftm.model.domain;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 
@@ -26,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "tb_pagamento")
 @XmlRootElement
-public class Pagamento implements Serializable {
+public class Pagamento extends EntidadeBase {
 
 	private static final long serialVersionUID = 1L;
 	@Id

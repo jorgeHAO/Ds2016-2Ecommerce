@@ -1,4 +1,4 @@
-package br.edu.iftm.model.dao;
+package br.edu.iftm.model.dao.entityManager;
 
 import java.util.List;
 
@@ -7,6 +7,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 
+import br.edu.iftm.model.dao.ITipoPagamentoDao;
 import br.edu.iftm.model.domain.TipoPagamento;
 
 /**
