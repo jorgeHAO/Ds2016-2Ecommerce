@@ -52,44 +52,50 @@
 
 	<!-- cabeçalho -->
 	<div ng-include="'cabecalho.html'"></div>
-
+	<a name="inicio"></a>
 	<div class="panel panel-success">
 		<div class="panel-heading ">Cadastro de Tipo de Pagamento</div>
 		<div class="panel-body">
 			<div>
 			
 				<form name="formPrincipal" >
-
+					
+					<!-- Mensagens: Percorre o array de mensagens do controller e apresenta na tela -->
+					<div ng-repeat="mensagen in mensagens" ng-show="formPrincipal.$invalid">
+						<div class="alert alert-danger">
+							<strong>Mensagem: </strong> {{mensagen}}
+						</div>
+					</div>
+					
 					<div class="panel panel-success">
-						<div class="panel-body">
-							
-								<div class="form-group col-md-2">
-									<label for="exampleInputCodigo" style="font-weight: bold;">Codigo</label>
-									<input type="text" disabled="true" class="form-control" 
-										ng-model="tipoPagamento.idTipoPagamento" placeholder="Codigo">									
-								</div>
+						<div class="panel-body">							
+							<div class="form-group col-md-2">
+								<label for="exampleInputCodigo" style="font-weight: bold;">Codigo</label>
+								<input type="text" disabled="true" class="form-control" 
+									ng-model="tipoPagamento.idTipoPagamento" placeholder="Codigo">									
+							</div>
 
-								<div class="form-group col-md-6">														
-									<label for="inputNome">Descrição</label>
-									<input type="text" name="dsTipoPagamento"
-										class="form-control" ng-model="tipoPagamento.dsTipoPagamento"
-										id="inputNome"
-										placeholder="Insira a Descrição do Tipo de Pagamento" maxlength="255" required >
-									<span ng-show="formPrincipal.dsTipoPagamento.$error.required" style="color:red;">Campo Obrigatório.</span>
-								</div>
+							<div class="form-group col-md-6">														
+								<label for="inputNome">Descrição</label>
+								<input type="text" name="dsTipoPagamento"
+									class="form-control" ng-model="tipoPagamento.dsTipoPagamento"
+									id="inputNome"
+									placeholder="Insira a Descrição do Tipo de Pagamento" maxlength="255" required >
+								<span ng-show="formPrincipal.dsTipoPagamento.$error.required" style="color:red;">Campo Obrigatório.</span>
+							</div>
 
-								<div class="form-group col-md-4">
-									<label for="inputCpf">Nº de Parcelas</label>
-									<input type="text" ng-required="true" name="inputCpf"
-										class="form-control" ng-model="tipoPagamento.nrParcelas"
-										id="inputCpf" placeholder="Insira o Nº de Parcelas"
-										onkeypress="return aceitarApenasNumeros(event)" maxlength="255" required>
-									<span ng-show="formPrincipal.inputCpf.$error.required" style="color:red;">Campo Obrigatório.</span>
-								</div>
-								
+							<div class="form-group col-md-4">
+								<label for="inputCpf">Nº de Parcelas</label>
+								<input type="text" ng-required="true" name="inputCpf"
+									class="form-control" ng-model="tipoPagamento.nrParcelas"
+									id="inputCpf" placeholder="Insira o Nº de Parcelas"
+									onkeypress="return aceitarApenasNumeros(event)" maxlength="255" required>
+								<span ng-show="formPrincipal.inputCpf.$error.required" style="color:red;">Campo Obrigatório.</span>
+							</div>
 						</div>
 					</div>
 
+					<a name="opcoes"></a>
 					<div class="panel panel-success">
 
 						<div class="panel-heading">
@@ -123,7 +129,8 @@
 						</div>
 					</div>
 				</form>
-
+				
+				<a name="pesquisar"></a>
 				<br> <input type="text" class="form-control"
 					ng-model="criterio"
 					placeholder="Pesquisar um registro já cadastrado." /> <br>
@@ -177,6 +184,7 @@
 
 						<span ng-show="(tipoPagamentos | filter:criterio).length == 0">Nenhum
 							registro disponível!</span>
+						<a name="registrosCadastrados"></a>	
 							
 					</div>
 				</div>
