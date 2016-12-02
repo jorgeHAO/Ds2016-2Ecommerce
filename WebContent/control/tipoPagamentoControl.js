@@ -4,14 +4,19 @@ app.controller('tipoPagamentoControl',function($scope,$http){
 	url = 'http://localhost:8080/DS2016-2Ecommerce/rs/tipoPagamento';
 	
 	$scope.salvar = function() {	
-		if ($scope.tipoPagamento.idTipoPagamento == undefined || $scope.tipoPagamento.idTipoPagamento == '') {    		
-			$http.post(url,$scope.tipoPagamento).success(function(tipoPagamentosRetorno) {
-				$scope.tipoPagamentos.push(tipoPagamentosRetorno);
-				$scope.novo();
-				$scope.mensagens.push('Tipo de Pagamento salvo com sucesso!');
-			}).error(function (erro) {
-				$scope.montaMensagemErro(erro.parameterViolations);
-			});
+		$scope.mensagens=[];
+		if ($scope.tipoPagamento.idTipoPagamento == undefined || $scope.tipoPagamento.idTipoPagamento == '') {
+			if($scope.formPrincipal.$invalid){
+				$scope.mensagens.push('Campo(s) Obrigatório(s) não Informado(s)!');
+			}else{
+				$http.post(url,$scope.tipoPagamento).success(function(tipoPagamentosRetorno) {
+					$scope.tipoPagamentos.push(tipoPagamentosRetorno);
+					$scope.novo();
+					$scope.mensagens.push('Tipo de Pagamento salvo com sucesso!');
+				}).error(function (erro) {
+					$scope.montaMensagemErro(erro.parameterViolations);
+				});
+			}	
 		} else {
 			$http.put(url,$scope.tipoPagamento).success(function(tipoPagamento) {
 				$scope.pesquisar();
@@ -32,6 +37,7 @@ app.controller('tipoPagamentoControl',function($scope,$http){
 	}
 	
 	$scope.pesquisar = function() {
+		$scope.mensagens=[];
 		$http.get(url).success(function (tipoPagamentos) {
 			$scope.tipoPagamentos = tipoPagamentos;
 		}).error(function (erro) {
@@ -40,8 +46,9 @@ app.controller('tipoPagamentoControl',function($scope,$http){
 	}
 	
 	$scope.excluir = function() {
+		$scope.mensagens=[];
 		if ($scope.tipoPagamento.idTipoPagamento == undefined || $scope.tipoPagamento.idTipoPagamento == '') {
-			$scope.mensagens.push('Selecione um Tipo de Pagamento');
+			$scope.mensagens.push('Selecione um Tipo de Pagamento antes de clicar no botão Excluir.');
 		} else {
 			$http.delete(url+"/"+$scope.tipoPagamento.idTipoPagamento).success(function() {
 				$scope.tipoPagamentos.splice($scope.tipoPagamentos.indexOf($scope.tipoPagamento), 1);	
@@ -59,6 +66,7 @@ app.controller('tipoPagamentoControl',function($scope,$http){
 	}
 	
 	$scope.seleciona = function(tipoPagamento) {
+		$scope.mensagens=[];
 		$scope.tipoPagamento = tipoPagamento;
 	}
 	
