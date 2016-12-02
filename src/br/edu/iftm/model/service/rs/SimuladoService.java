@@ -1,5 +1,7 @@
 package br.edu.iftm.model.service.rs;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -29,6 +31,15 @@ public class SimuladoService implements ISimuladoService {
 	@POST
 	public Simulado salvar(Simulado simulado) {
 
+		if(simulado.getDtAplicacaoStr() != null && !simulado.getDtAplicacaoStr().isEmpty()){
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
+			try {
+				simulado.setDtAplicacao(sdf.parse(simulado.getDtAplicacaoStr()));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
+		
 		return simuladoDao.salvar(simulado);
 	}
 

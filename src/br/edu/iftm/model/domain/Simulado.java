@@ -17,6 +17,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -39,6 +40,8 @@ public class Simulado implements Serializable {
     @Column(name = "dt_aplicacao")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dtAplicacao;
+    @Transient
+    private String dtAplicacaoStr;
     @NotNull(message="Descrição do simulado não pode ser vazia.")
     @Column(name = "ds_simulado")
     private String dsSimulado;
@@ -73,6 +76,15 @@ public class Simulado implements Serializable {
         return dtAplicacao;
     }
 
+    public String getDtAplicacaoStr() {
+		return dtAplicacaoStr;
+	}
+
+	public void setDtAplicacaoStr(String dtAplicacaoStr) {
+		this.dtAplicacaoStr = dtAplicacaoStr;
+	}
+    
+    
     public void setDtAplicacao(Date dtAplicacao) {
         this.dtAplicacao = dtAplicacao;
     }

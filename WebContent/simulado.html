@@ -8,19 +8,17 @@
 	
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-datetimepicker.css" rel="stylesheet">
 	
 	<script src="js/angular.min.js"></script>
 	<script src="control/simuladoControl.js"></script>
-
-
-</head>
-<body ng-controller="simuladoControl">
-
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="js/jquery-1.12.2.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
-
+    <script src="js/bootstrap-datetimepicker.js"></script>
+</head>
+<body ng-controller="simuladoControl">
 	<div ng-include="'menu.html'"></div>
 
 	<div class="panel panel-default">
@@ -46,32 +44,54 @@
 						<hr />
 
 						<form>
-							<div class="form-group col-md-2">
-								<label for="exampleInputCodigo">Codigo</label> <input
-									type="text" disabled="true" class="form-control"
-									ng-model="simulado.idSimulado" placeholder="Codigo">
+						    <div class="row">
+								<div class="form-group col-md-2">
+									<label for="exampleInputCodigo">Codigo</label> <input
+										type="text" disabled="true" class="form-control"
+										ng-model="simulado.idSimulado" placeholder="Codigo">
+								</div>
+	
+								
+								<div class="form-group col-md-6">
+									<label for="exampleInputNome">Descrição</label> <input type="text"
+										class="form-control" ng-model="simulado.dsSimulado" id="inputNome"
+										placeholder="Insira o Nome">
+								</div>
 							</div>
-
+							<div class="row">
+								<div class="form-group col-md-4">
+									<label for="exampleInputDtNascimento">Data de Aplicação</label> 
+									<input data-format="dd/MM/yyyy"
+										type="text" class="form-control"
+										ng-model="simulado.dtAplicacaoStr" id="inputDtAplicacao"
+										placeholder="Insira a Data de Nascimento">
+								</div>
+	
+								<div class="form-group col-md-1">
+									<label for="exampleInputNome">Categoria</label> 
+								    <select name="repeatSelect" id="repeatSelect" ng-model="idCategoria" class="form-control">
+								      <option ng-repeat="categoria in categorias" value="{{categoria.idCategoria}}">{{categoria.dsCategoria}}</option>
+								    </select>
+								</div>
+							</div>							
 							
-							<div class="form-group col-md-6">
-								<label for="exampleInputNome">Descrição</label> <input type="text"
-									class="form-control" ng-model="simulado.dsSimulado" id="inputNome"
-									placeholder="Insira o Nome">
-							</div>
-
-							<div class="form-group col-md-4">
-								<label for="exampleInputDtNascimento">Data de Aplicação</label> 
-								<input data-format="dd/MM/yyyy"
-									type="text" class="form-control"
-									ng-model="simulado.dtNascimentoStr" id="inputDtNascimento"
-									placeholder="Insira a Data de Nascimento">
-							</div>
-							<div class="form-group col-md-6">
-								<label for="exampleInputNome">Categoria</label> 
-							    <select name="repeatSelect" id="repeatSelect" ng-model="idCategoria" class="form-control">
-							      <option ng-repeat="categoria in categorias" value="{{categoria.idCategoria}}">{{categoria.dsCategoria}}</option>
-							    </select>
-							</div>
+						    <div class="row">
+						        <div class='col-sm-6'>
+						            <div class="form-group">
+						                <div class='input-group date' id='datetimepicker1'>
+						                    <input type='text' class="form-control" />
+						                    <span class="input-group-addon">
+						                        <span class="glyphicon glyphicon-calendar"></span>
+						                    </span>
+						                </div>
+						            </div>
+						        </div>
+						        <script type="text/javascript">
+						            $(function () {
+						                $('#datetimepicker1').datetimepicker();
+						            });
+						        </script>
+							</div>							
 						</form>
 					</div>
 
@@ -92,7 +112,7 @@
 								<td>{{simuladoTabela.idSimulado}}</td>
 								<td>{{simuladoTabela.categoria.dsCategoria}}</td>
 								<td>{{simuladoTabela.dsSimulado}}</td>
-								<td>{{simuladoTabela.dtAplicacao}}</td>
+								<td>{{simuladoTabela.dtAplicacao | date :  "dd/MM/y" }}</td>
 							</tr>
 							</tbody>
 						</table>
