@@ -114,32 +114,24 @@
 							
 							<!-- Primeira linha de Campos-->							
 							<div class="form-group col-md-4">
-								<label for="exampleInputCodigo" style="font-weight: bold;">
-									Funcionário <span ng-show="formPrincipal.idFuncionario.$error.required" style="color:red;">*</span>
-								</label>								
+								<label for="exampleInputCodigo" style="font-weight: bold;">Funcionário</label>								
 								
-								<select class="form-control" ng-model="pagamento.idFuncionario" ng-selected="pagamento.idFuncionario" ng-options="x.nmFuncionario for x in funcionarios track by x">									
-									<option value=""></option>
+								<select class="form-control" ng-model="pagamento.idFuncionario" ng-selected="pagamento.idFuncionario" ng-options="x.nmFuncionario for x in funcionarios track by x.idFuncionario">
+									<option value="">Selecione</option>
 								</select>
 							</div>
 							
 							<div class="form-group col-md-4">
-								<label for="idTipoPagamento">
-									Tipo de Pagamento <span ng-show="formPrincipal.idTipoPagamento.$error.required" style="color:red;">*</span>									
-								</label>
-								
-								<select class="form-control" ng-model="pagamento.idTipoPagamento" ng-selected="pagamento.idTipoPagamento" ng-options="x.dsTipoPagamento for x in tipoPagamentos track by x">
-									<option value=""></option>
+								<label for="idTipoPagamento">Tipo de Pagamento</label>								
+								<select class="form-control" ng-model="pagamento.idTipoPagamento" ng-selected="pagamento.idTipoPagamento" ng-options="x.dsTipoPagamento for x in tipoPagamentos track by x.idTipoPagamento">
+									<option value="">Selecione</option>
 								</select>
 							</div>
 
 							<div class="form-group col-md-4">
-								<label for="idCategoriaAluno">
-									Categoria do Aluno <span ng-show="formPrincipal.idCategoriaAluno.$error.required" style="color:red;">*</span>
-								</label>
-								
-								<select class="form-control" ng-model="pagamento.idCategoriaAluno" ng-selected="pagamento.idCategoriaAluno" ng-options="x.idCategoria.dsCategoria for x in categorias track by x">
-									<option value=""></option>
+								<label for="idCategoriaAluno">Categoria do Aluno</label>								
+								<select class="form-control" ng-model="pagamento.idCategoriaAluno" ng-selected="pagamento.idCategoriaAluno" ng-options="x.idCategoria.dsCategoria for x in categorias track by x.idCategoriaAluno">
+									<option value="">Selecione</option>
 								</select>
 							</div>
 							
