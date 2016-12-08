@@ -9,19 +9,16 @@
 		content="Cadastro dos Tipos de Pagamento para Sistema de Auto Escola">
 	<meta name="author" content="Alan de Paulo Franco">
 
-	<title>Cadastro de Simulados</title>
+	<title>Cadastro de Tipo de Pagamento</title>
 
 	<link rel="shortcut icon" href="img/favicon.png" />
 
 	<!-- Bootstrap Core CSS -->
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 
-	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	<script src="js/jquery-1.12.2.min.js"></script>
-	<script src="js/angular.min.js"></script>
-
 	<!-- Custom CSS -->
 	<link href="css/landing-page.css" rel="stylesheet">
+    <link href="./css/base.css" rel="stylesheet">
 
 	<!-- Custom Fonts -->
 	<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet"
@@ -31,38 +28,38 @@
 		href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic"
 		rel="stylesheet" type="text/css">
 
-       <link href="./css/base.css" rel="stylesheet">
-       <link href="./css/bootstrap-datetimepicker.css" rel="stylesheet">
+	<!-- Java Script para importação da Biblioteca Angular -->
+	<script src="js/angular.min.js"></script>
+
+	<!-- Java Script Controlador que Integra o FrontEnd com BackEnd -->
+	<script src="control/simuladoControl.js"></script>
+
+	<!-- Java Script Para as validações Genéricas do Projeto. -->
+	<script src="js/autoEscola.js"></script>
+	
+</head>
+
+<body ng-controller="simuladoControl">
+
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="js/jquery-1.12.2.min.js"></script>
+
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script src="js/bootstrap.min.js"></script>
 	
 	<!-- Java Script Para a Bibliotéca de Paginação de Table. -->
 	<script src="control/dirPagination.js"></script>
 	<script src="./js/moment-with-locales.js"></script>
-	<script src="./js/bootstrap-datetimepicker.js"></script>
 
-
-	<!-- Java Script Controlador que Integra o FrontEnd com BackEnd -->
-	<script src="control/simuladoControl.js"></script>
-
-
-	<!-- Java Script Para as validações Genéricas do Projeto. -->
-	<script src="js/autoEscola.js"></script>
-
-   <script type="text/javascript">
-       $(function () {
-           $('#datetimepicker1').datetimepicker({
-        	   locale: 'pt',
-        	   format: 'DD/MM/YYYY'
-           });
-       });
-   </script>
-
+	<!-- Plugin Angulara para Mascaras -->
+	<script src="js/mask.js"></script>
 	
-</head>
-
-<body ng-controller="simuladoControl">
-
+	<!-- Plugin Angulara para Campo Monetário -->
+	<script src="js/angular-money-br-directive.js"></script>
+	
+	<!-- Plugin Angulara Internacionalização -->
+	<script src="js/angular-locale_pt-br.js"></script>
+	
 	<!-- cabeçalho -->
 	<div ng-include="'cabecalho.html'"></div>
 	<a name="inicio"></a>
@@ -105,22 +102,15 @@
 								</div>
 							</div>
 							<div class="row">
-								<div class="form-group col-md-3">
-									<label for="inputDtAplicacao">Data de Aplicação</label>
-					                <div class="input-group date" id="datetimepicker1">
-					                    <input type="text" class="form-control" ng-model="simulado.dtAplicacaoStr" 
-					                    id="inputDtAplicacao" placeholder="Insira a Data da Aplicação">
-					                    <span class="input-group-addon">
-					                        <span class="glyphicon glyphicon-calendar"></span>
-					                    </span>
-					                </div>
-								</div>
-	
 								<div class="form-group col-md-2">
 									<label for="exampleInputNome">Categoria</label> 
 								    <select name="selectCategoria" id="selectCategoria" ng-model="simulado.categoria" ng-options="categoria.dsCategoria for categoria in categorias track by categoria.idCategoria" class="form-control">
 										<option value="">Selecione</option>
 									</select>
+								</div>
+								<div class="form-group col-md-3">
+									<label for="inputDtAplicacao">Data de Aplicação (dd/mm/aaaa)</label>
+									<input type="text" required ui-mask="99/99/9999" class="form-control" ng-model="simulado.dtAplicacaoStr" placeholder="Insira a Data da Aplicação">
 								</div>
 							</div>							
 					</div>
