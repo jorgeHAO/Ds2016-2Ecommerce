@@ -6,8 +6,8 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description"
-		content="Cadastro dos Tipos de Pagamento para Sistema de Auto Escola">
-	<meta name="author" content="Alan de Paulo Franco">
+		content="Cadastro dos Simulados spara Sistema de Auto Escola">
+	<meta name="author" content="Saulo Damasceno Borges">
 
 	<title>Cadastro de Tipo de Pagamento</title>
 
@@ -18,15 +18,11 @@
 
 	<!-- Custom CSS -->
 	<link href="css/landing-page.css" rel="stylesheet">
-    <link href="./css/base.css" rel="stylesheet">
 
 	<!-- Custom Fonts -->
 	<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet"
 		type="text/css">
 
-	<link
-		href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic"
-		rel="stylesheet" type="text/css">
 
 	<!-- Java Script para importação da Biblioteca Angular -->
 	<script src="js/angular.min.js"></script>
@@ -62,7 +58,7 @@
 	
 	<!-- cabeçalho -->
 	<div ng-include="'cabecalho.html'"></div>
-	<a name="inicio"></a>
+	
 	<div class="panel panel-success">
 		<div class="panel-heading ">Cadastro de Simulados</div>
 		<div class="panel-body">
@@ -182,11 +178,8 @@
 							</tbody>
 						</table>
 						<span ng-show="(simulados | filter:criterio).length == 0">Infelizmente não temos o item que você está procurando!</span>
-
-
 					</div>
 				</div>
-
 			</div>
 		</div>
 	</div>
