@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="simuladoModule">
+<head>
+<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Cadastro de Simulados</title>
+	
+	<link rel="shortcut icon" href="img/favicon.png" />
+
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+       <meta http-equiv="X-UA-Compatible" content="IE=edge">
+       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       
+
+       
+
+       <link rel="stylesheet" type="text/css" media="screen" href="./css/bootstrap.min.css">
+       <link href="./css/base.css" rel="stylesheet">
+       <link href="./css/bootstrap-datetimepicker.css" rel="stylesheet">
+	
+	<script src="js/angular.min.js"></script>
+	<script src="control/simuladoControl.js"></script>
+	<script type="text/javascript" src="./js/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="./js/bootstrap.min.js"></script>
+	<script src="./js/moment-with-locales.js"></script>
+	<script src="./js/bootstrap-datetimepicker.js"></script>
+       <script type="text/javascript">
+           $(function () {
+               $('#datetimepicker1').datetimepicker();
+           });
+       </script>
+
+
+</head>
+
+<head>
+
+		
+    </head>
+<body ng-controller="simuladoControl">
+	<!-- cabeçalho -->
+	<div ng-include="'cabecalho.html'"></div>
+
+	<div class="panel panel-default">
+		<div class="panel-heading">Cadastro de Simulados</div>
+		<div class="panel-body">
+			<div>
+				<ul class="nav nav-tabs" role="tablist">
+					<li role="presentation" class="active"><a href="#cadastro"
+						aria-controls="cadastro" role="tab" data-toggle="tab">Cadastro</a>
+					</li>
+					<li role="presentation"><a href="#dados" aria-controls="dados"
+						role="tab" data-toggle="tab">Dados</a></li>
+				</ul>
+
+				<div class="tab-content">
+					
+					<div role="tabpanel" class="tab-pane active" id="cadastro">
+						<br>
+						<button type="button" class="btn btn-info" ng-click="novo()">Novo</button>
+						<button type="button" class="btn btn-success" ng-click="salvar()">Salvar</button>
+						<button type="button" class="btn btn-danger" ng-click="excluir()">Excluir</button>
+						<button type="button" class="btn btn-warning" ng-click="pesquisar()">Pesqusiar</button>
+						<hr />
+
+						<form>
+						    <div class="row">
+								<div class="form-group col-md-2">
+									<label for="exampleInputCodigo">Codigo</label> <input
+										type="text" disabled="true" class="form-control"
+										ng-model="simulado.idSimulado" placeholder="Codigo">
+								</div>
+	
+								
+								<div class="form-group col-md-6">
+									<label for="exampleInputNome">Descrição</label> <input type="text"
+										class="form-control" ng-model="simulado.dsSimulado" id="inputNome"
+										placeholder="Insira o Nome">
+								</div>
+							</div>
+							<div class="row">
+								<div class="form-group col-md-3">
+									<label for="inputDtAplicacao">Data de Aplicação</label>
+					                <div class="input-group date" id="datetimepicker1">
+					                    <input type="text" class="form-control" ng-model="simulado.dtAplicacaoStr" 
+					                    id="inputDtAplicacao" placeholder="Insira a Data da Aplicação">
+					                    <span class="input-group-addon">
+					                        <span class="glyphicon glyphicon-calendar"></span>
+					                    </span>
+					                </div>
+							
+								</div>
+	
+								<div class="form-group col-md-1">
+									<label for="exampleInputNome">Categoria</label> 
+								    <select name="repeatSelect" id="repeatSelect" ng-model="idCategoria" class="form-control">
+								      <option ng-repeat="categoria in categorias" value="{{categoria.idCategoria}}">{{categoria.dsCategoria}}</option>
+								    </select>
+								</div>
+							</div>							
+							
+						</form>
+					</div>
+
+					<div role="tabpanel" class="tab-pane" id="dados">
+						<br> <input type="text" class="form-control"
+							ng-model="criterio" placeholder="O que voce esta procurando?" />
+						<br>
+						<table class="table table-striped table-bordered table-hover">
+							<tr>
+							<th>Código</th>
+							<th>Categoria</th>
+							<th>Descrição</th>
+							<th>Data</th>
+							</tr>
+							<tbody>
+							<tr ng-repeat="simuladoTabela in simulados | filter:criterio"
+								ng-click="seleciona(simuladoTabela)">
+								<td>{{simuladoTabela.idSimulado}}</td>
+								<td>{{simuladoTabela.categoria.dsCategoria}}</td>
+								<td>{{simuladoTabela.dsSimulado}}</td>
+								<td>{{simuladoTabela.dtAplicacao | date :  "dd/MM/y" }}</td>
+							</tr>
+							</tbody>
+						</table>
+						<span ng-show="(simulados | filter:criterio).length == 0">Infelizmente não temos o item que você está procurando!</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

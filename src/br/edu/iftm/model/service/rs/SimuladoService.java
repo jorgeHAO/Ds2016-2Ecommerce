@@ -32,7 +32,7 @@ public class SimuladoService implements ISimuladoService {
 	public Simulado salvar(Simulado simulado) {
 
 		if(simulado.getDtAplicacaoStr() != null && !simulado.getDtAplicacaoStr().isEmpty()){
-			SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 			try {
 				simulado.setDtAplicacao(sdf.parse(simulado.getDtAplicacaoStr()));
 			} catch (ParseException e) {

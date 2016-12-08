@@ -1,6 +1,7 @@
 package br.edu.iftm.model.domain;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -56,6 +57,8 @@ public class Simulado implements Serializable {
     @JoinColumn(name = "id_categoria", referencedColumnName = "id_categoria")
     @ManyToOne
     private Categoria categoria;
+    
+    public static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
     public Simulado() {
     }
@@ -77,6 +80,9 @@ public class Simulado implements Serializable {
     }
 
     public String getDtAplicacaoStr() {
+    	if(dtAplicacaoStr == null){
+    		setDtAplicacao(dtAplicacao);
+    	}
 		return dtAplicacaoStr;
 	}
 
@@ -87,6 +93,9 @@ public class Simulado implements Serializable {
     
     public void setDtAplicacao(Date dtAplicacao) {
         this.dtAplicacao = dtAplicacao;
+        if(dtAplicacao != null){
+        	this.dtAplicacaoStr = sdf.format(dtAplicacao);
+        }
     }
     
     public String getDsSimulado() {
