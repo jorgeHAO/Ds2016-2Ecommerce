@@ -119,8 +119,12 @@ app.controller('parcelaControl',function($scope,$http, $filter){
 	
 	$scope.selecionaPagamento = function() {
 		$scope.mensagens=[];
-		var dataFormatada = $filter('date')($scope.parcela.idPagamento.dtPagamento, 'dd/MM/yyyy', 'UTC');
-		$scope.parcela.dtPagamento = dataFormatada;
+		if ($scope.parcela.idPagamento != undefined && $scope.parcela.idPagamento != '') {
+			var dataFormatada = $filter('date')($scope.parcela.idPagamento.dtPagamento, 'dd/MM/yyyy', 'UTC');
+			$scope.parcela.dtPagamento = dataFormatada;			
+		}else{				
+			$scope.parcela.dtPagamento = '';			
+		}
 	}
 	
 	$scope.pesquisar();
