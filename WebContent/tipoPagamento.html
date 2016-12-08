@@ -76,21 +76,27 @@
 							</div>
 
 							<div class="form-group col-md-6">														
-								<label for="inputNome">Descrição</label>
-								<input type="text" name="dsTipoPagamento"
-									class="form-control" ng-model="tipoPagamento.dsTipoPagamento"
-									id="inputNome"
-									placeholder="Insira a Descrição do Tipo de Pagamento" maxlength="255" required >
-								<span ng-show="formPrincipal.dsTipoPagamento.$error.required" style="color:red;">Campo Obrigatório.</span>
+								<label for="inputNome">Descrição</label>								
+								<div class="input-group">
+									<span ng-show="formPrincipal.dsTipoPagamento.$error.required" class="input-group-addon" style="color:red;"><i class="glyphicon glyphicon-asterisk"></i></span>
+									<span ng-show="!formPrincipal.dsTipoPagamento.$error.required" class="input-group-addon" style="color:green;"><i class="glyphicon glyphicon-asterisk"></i></span>
+									<input type="text" name="dsTipoPagamento"
+										class="form-control" ng-model="tipoPagamento.dsTipoPagamento"
+										id="inputNome"
+										placeholder="Insira a Descrição do Tipo de Pagamento" maxlength="255" required >									
+								</div>
 							</div>
 
 							<div class="form-group col-md-4">
 								<label for="inputCpf">Nº de Parcelas</label>
-								<input type="text" ng-required="true" name="inputCpf"
-									class="form-control" ng-model="tipoPagamento.nrParcelas"
-									id="inputCpf" placeholder="Insira o Nº de Parcelas"
-									onkeypress="return aceitarApenasNumeros(event)" maxlength="255" required>
-								<span ng-show="formPrincipal.inputCpf.$error.required" style="color:red;">Campo Obrigatório.</span>
+								<div class="input-group">
+									<span ng-show="formPrincipal.inputCpf.$error.required" class="input-group-addon" style="color:red;"><i class="glyphicon glyphicon-asterisk"></i></span>
+									<span ng-show="!formPrincipal.inputCpf.$error.required" class="input-group-addon" style="color:green;"><i class="glyphicon glyphicon-asterisk"></i></span>
+									<input type="text" ng-required="true" name="inputCpf"
+										class="form-control" ng-model="tipoPagamento.nrParcelas"
+										id="inputCpf" placeholder="Insira o Nº de Parcelas"
+										onkeypress="return aceitarApenasNumeros(event)" maxlength="255" required>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -131,9 +137,13 @@
 				</form>
 				
 				<a name="pesquisar"></a>
-				<br> <input type="text" class="form-control"
-					ng-model="criterio"
-					placeholder="Pesquisar um registro já cadastrado." /> <br>
+				<br>
+					<div class="input-group">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+						<input type="text" class="form-control" ng-model="criterio"
+								placeholder="Pesquisar um registro já cadastrado." /> 
+					</div>
+				<br>
 
 				<div class="panel panel-success">
 					<div class="panel-body">
