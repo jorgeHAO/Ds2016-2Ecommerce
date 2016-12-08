@@ -1,10 +1,272 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<html lang="pt-br" ng-app="pagamentoModule">
 
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description"
+		content="Cadastro dos Tipos de Pagamento para Sistema de Auto Escola">
+	<meta name="author" content="Alan de Paulo Franco">
+
+	<title>Pagamento</title>
+
+	<link rel="shortcut icon" href="img/favicon.png" />
+
+	<!-- Bootstrap Core CSS -->
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	
+	<!-- Custom CSS -->
+	<link href="css/landing-page.css" rel="stylesheet">
+
+	<!-- Custom Fonts -->
+	<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet"
+		type="text/css">
+
+	<link
+		href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic"
+		rel="stylesheet" type="text/css">
+		
+	<!-- Java Script para importação da Biblioteca Angular -->
+	<script src="js/angular.min.js"></script>
+		
+	<!-- Java Script Controlador que Integra o FrontEnd com BackEnd -->
+	<script src="control/pagamentoControl.js"></script>
+
+	<!-- Java Script Para as validações Genéricas do Projeto. -->
+	<script src="js/autoEscola.js"></script>
+	
+</head>
+
+<body ng-controller="pagamentoControl">
+
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="js/jquery-1.12.2.min.js"></script>
+
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="js/bootstrap.min.js"></script>
+	
+	<!-- Java Script Para a Bibliotéca de Paginação de Table. -->
+	<script src="control/dirPagination.js"></script>
+	
+	<!-- Plugin Angulara para Mascaras -->
+	<script src="js/mask.js"></script>
+	
+	<!-- Plugin Angulara para Campo Monetário -->
+	<script src="js/angular-money-br-directive.js"></script>
+	
+	<!-- Plugin Angulara Internacionalização -->
+	<script src="js/angular-locale_pt-br.js"></script>
+	
+	<!-- cabeçalho -->
+	<div ng-include="'cabecalho.html'"></div>
+	
+	<a name="inicio"></a>
+	<div class="panel panel-success">
+		<div class="panel-heading ">Pagamento</div>
+		<div class="panel-body">
+			<div>
+			
+				<form name="formPrincipal" >
+					
+					<!-- Mensagens: Percorre o array de mensagens do controller e apresenta na tela -->
+					<div ng-repeat="mensagen in mensagens" ng-show="formPrincipal.$invalid">
+						<div class="alert alert-danger">
+							<strong>Mensagem: </strong> {{mensagen}}
+						</div>
+					</div>
+					
+					<div class="panel panel-success">
+						<div class="panel-body">
+						
+						   <!-- Primeira linha de Campos-->						   
+							<div class="form-group col-md-2">
+								<label for="codigo" style="font-weight: bold;">Código</label>
+								<input type="text" disabled="true" class="form-control" name="codigo"
+									ng-model="pagamento.idPagamento" placeholder="Codigo">
+							</div>
+							
+							<div class="form-group col-md-6">														
+								<label for="dsPagamento">Descrição</label>								
+								<div class="input-group">
+									<span ng-show="formPrincipal.dsPagamento.$error.required" class="input-group-addon" style="color:red;"><i class="glyphicon glyphicon-asterisk"></i></span>
+									<span ng-show="!formPrincipal.dsPagamento.$error.required" class="input-group-addon" style="color:green;"><i class="glyphicon glyphicon-asterisk"></i></span>
+									
+									<input type="text" name="dsPagamento"
+									class="form-control" ng-model="pagamento.dsPagamento"
+									id="dsPagamento"
+									placeholder="Insira a Descrição do Pagamento" maxlength="255" required >
+								</div>
+							</div>
+
+							<div class="form-group col-md-4">
+								<label for="vlPagamento">Valor do Pagamento</label>
+								<div class="input-group">
+									<span ng-show="formPrincipal.vlPagamento.$error.required" class="input-group-addon" style="color:red;"><i class="glyphicon glyphicon-asterisk"></i></span>
+									<span ng-show="!formPrincipal.vlPagamento.$error.required" class="input-group-addon" style="color:green;"><i class="glyphicon glyphicon-asterisk"></i></span>
+									<input type="text" ng-required="true" name="vlPagamento"
+										class="form-control" ng-model="pagamento.vlPagamento"
+										id="vlPagamento"
+										format="number"
+										maxlength="255" required>
+								</div>
+							</div>
+							
+							<!-- Primeira linha de Campos-->							
+							<div class="form-group col-md-4">
+								<label for="exampleInputCodigo" style="font-weight: bold;">
+									Funcionário <span ng-show="formPrincipal.idFuncionario.$error.required" style="color:red;">*</span>
+								</label>								
+								
+								<select class="form-control" ng-model="pagamento.idFuncionario" ng-selected="pagamento.idFuncionario" ng-options="x.nmFuncionario for x in funcionarios track by x">									
+									<option value=""></option>
+								</select>
+							</div>
+							
+							<div class="form-group col-md-4">
+								<label for="idTipoPagamento">
+									Tipo de Pagamento <span ng-show="formPrincipal.idTipoPagamento.$error.required" style="color:red;">*</span>									
+								</label>
+								
+								<select class="form-control" ng-model="pagamento.idTipoPagamento" ng-selected="pagamento.idTipoPagamento" ng-options="x.dsTipoPagamento for x in tipoPagamentos track by x">
+									<option value=""></option>
+								</select>
+							</div>
+
+							<div class="form-group col-md-4">
+								<label for="idCategoriaAluno">
+									Categoria do Aluno <span ng-show="formPrincipal.idCategoriaAluno.$error.required" style="color:red;">*</span>
+								</label>
+								
+								<select class="form-control" ng-model="pagamento.idCategoriaAluno" ng-selected="pagamento.idCategoriaAluno" ng-options="x.idCategoria.dsCategoria for x in categorias track by x">
+									<option value=""></option>
+								</select>
+							</div>
+							
+							<!-- Primeira linha de Campos-->							
+							<div class="form-group col-md-2">
+								<label for="dtPagamento">Data do Pagamento</label>
+								<div class="input-group">
+									<span ng-show="formPrincipal.dtPagamento.$error.required" class="input-group-addon" style="color:red;"><i class="glyphicon glyphicon-asterisk"></i></span>
+									<span ng-show="!formPrincipal.dtPagamento.$error.required" class="input-group-addon" style="color:green;"><i class="glyphicon glyphicon-asterisk"></i></span>
+									<input type="text" name="dtPagamento" required ui-mask="99/99/9999" class="form-control" ng-model="pagamento.dtPagamento" >
+								</div>
+							</div>							
+						</div>
+					</div>
+					
+					<a name="opcoes"></a>
+					<div class="panel panel-success">
+					
+						<div class="panel-heading">
+							<h3 class="panel-title">
+								<span class="glyphicon glyphicon-wrench "></span> Opções
+							</h3>
+						</div>
+
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-xs-12 col-md-12 pull-left">
+									<a href="#" class="btn btn-success btn-lg"
+										title="Salvar Registro" role="button" ng-click="salvar()" ><span
+										class="glyphicon glyphicon-floppy-disk"></span> <br/> Salvar</a> 
+										
+									<a href="#" class="btn btn-danger btn-lg"
+										title="Excluir um Registro Existente" role="button"
+										ng-click="excluir()"><span class="glyphicon glyphicon-trash"></span> <br/>Excluir</a> 
+										
+									<a href="#" class="btn btn-warning btn-lg"
+										title="Atualizar Tabela de Registros" role="button"
+										ng-click="pesquisar()"><span class="glyphicon glyphicon-refresh"></span>
+										<br />Atualizar</a> 
+										
+									<a href="#" class="btn btn-primary btn-lg"
+										title="Limpar Campos para Cadastrar um Novo Registro"
+										role="button" ng-click="novo()"><span
+										class="glyphicon glyphicon-folder-open"></span> <br />Novo</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+				
+				<a name="pesquisar"></a>
+				<br>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+					<input type="text" class="form-control" ng-model="criterio" placeholder="Pesquisar um registro já cadastrado." />
+				</div>
+				<br>
+				
+				<div class="panel panel-success">
+					<div class="panel-body">					
+						
+						<table class="dataTable table table-striped table-bordered table-hover table-list">
+							
+							<thead>
+								<tr>
+									<th style="width: 5%; text-align: center">
+										<em class="fa fa-cog"></em>										
+									</th>
+									
+									<th ng-click="ordenar('codigo')">Código
+										<span class="glyphicon sort-icon" ng-show="sortKey=='codigo'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+									</th>
+									
+									<th ng-click="ordenar('descricao')">Descrição
+										<span class="glyphicon sort-icon" ng-show="sortKey=='descricao'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+									</th>
+									
+									<th ng-click="ordenar('valorPagamento')">Valor do Pagamento
+										<span class="glyphicon sort-icon" ng-show="sortKey=='valorPagamento'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+									</th>
+									
+									<th ng-click="ordenar('funcionario')">Funcionário
+										<span class="glyphicon sort-icon" ng-show="sortKey=='funcionario'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+									</th>
+									
+									<th ng-click="ordenar('dataPagamento')">Data do Pagamento
+										<span class="glyphicon sort-icon" ng-show="sortKey=='dataPagamento'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+									</th>
+								</tr>
+							</thead>
+							
+							<tbody>							        
+								<tr dir-paginate="pagamentoTabela in pagamentos|filter:criterio|orderBy:sortKey:reverse|itemsPerPage:5"
+									ng-click="seleciona(pagamentoTabela)">
+									<td style="width: 5%" align="center"><a
+										class="btn btn-default" data-toggle="tooltip"
+										data-placement="top" title="Selecionar Registro"><em
+											class="fa fa-pencil"></em></a></td>
+									<td>{{pagamentoTabela.idPagamento}}</td>
+									<td>{{pagamentoTabela.dsPagamento}}</td>
+									<td>{{pagamentoTabela.vlPagamento | number}}</td>									
+									<td>{{pagamentoTabela.idFuncionario.nmFuncionario}}</td>
+									<td>{{pagamentoTabela.dtPagamento | date : 'dd/MM/yyyy' : 'UTC'}}</td>
+								</tr>
+							</tbody>
+						</table>
+						
+						<div class="row">
+							<div class="col-md-4 col-xs-4 pull-left"></div>
+							<div class="col-md-8 col-xs-8 pull-center">
+								<dir-pagination-controls max-size="5" direction-links="true" boundary-links="true" >
+								</dir-pagination-controls>
+							</div>
+						</div>
+
+						<span ng-show="(pagamentos | filter:criterio).length == 0">Nenhum
+							registro disponível!</span>
+						<a name="registrosCadastrados"></a>							
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	
+	<!-- Rodapé -->
+	<div ng-include="'rodape.html'"></div>
+	
 </body>
 </html>
