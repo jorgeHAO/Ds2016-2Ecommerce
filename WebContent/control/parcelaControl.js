@@ -53,7 +53,7 @@ app.controller('parcelaControl',function($scope,$http, $filter){
 					parcelasRetorno.dtParcela = dataFormatada;
 					$scope.parcelas.push(parcelasRetorno);
 					$scope.novo();
-					$scope.mensagens.push('Parcela salvo com sucesso!');
+					$scope.mensagens.push('Parcela salva com sucesso!');
 				}).error(function (erro) {
 					$scope.montaMensagemErro(erro.parameterViolations);
 				});
@@ -62,7 +62,7 @@ app.controller('parcelaControl',function($scope,$http, $filter){
 			$http.put(url,$scope.parcela).success(function(parcela) {
 				$scope.pesquisar();
 				$scope.novo();
-				$scope.mensagens.push('Parcela atualizado com sucesso!');
+				$scope.mensagens.push('Parcela atualizada com sucesso!');
 			}).error(function (erro) {				
 				$scope.montaMensagemErro(erro.parameterViolations);
 			});
@@ -89,12 +89,12 @@ app.controller('parcelaControl',function($scope,$http, $filter){
 	$scope.excluir = function() {
 		$scope.mensagens=[];
 		if ($scope.parcela.idParcela == undefined || $scope.parcela.idParcela == '') {
-			$scope.mensagens.push('Selecione um Parcela antes de clicar no botão Excluir.');
+			$scope.mensagens.push('Selecione uma Parcela antes de clicar no botão Excluir.');
 		} else {
 			$http.delete(url+"/"+$scope.parcela.idParcela).success(function() {
 				$scope.parcelas.splice($scope.parcelas.indexOf($scope.parcela), 1);	
 				$scope.novo();
-				$scope.mensagens.push('Parcela excluído com sucesso!');
+				$scope.mensagens.push('Parcela excluída com sucesso!');
 			}).error(function (erro) {
 				$scope.montaMensagemErro(erro.parameterViolations);
 			});
