@@ -4,134 +4,275 @@
 <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Cadastro de Funcionarios</title>
+    <meta name="description"
+		content="Cadastro dos Funcionários para Sistema de Auto Escola">
+	
+	<title>Cadastro de Funcionários</title>
+	
+	<link rel="shortcut icon" href="img/favicon.png" />
 	
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    
+	<!-- Custom CSS -->
+	<link href="css/landing-page.css" rel="stylesheet">
+
+	<!-- Custom Fonts -->
+	<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet"
+		type="text/css">
+
+	<link
+		href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic"
+		rel="stylesheet" type="text/css">
+    
 	
+	<!-- Java Script para importação da Biblioteca Angular -->
 	<script src="js/angular.min.js"></script>
+	
+	<!-- Java Script Controlador que Integra o FrontEnd com BackEnd -->
 	<script src="control/funcionarioControl.js"></script>
 
+	<!-- Java Script Para as validações Genéricas do Projeto. -->
+	<script src="js/autoEscola.js"></script>
 
 </head>
 <body ng-controller="funcionarioControl">
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="js/jquery-1.12.2.min.js"></script>
+    
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
 
-	<div ng-include="'menu.html'"></div>
+	<!-- Java Script Para a Bibliotéca de Paginação de Table. -->
+	<script src="control/dirPagination.js"></script>
 
-	<div class="panel panel-default">
+	<!-- cabeçalho -->
+	<div ng-include="'cabecalho.html'"></div>
+	<a name="inicio"></a>
+	
+	<div class="panel panel-success">
 		<div class="panel-heading">Cadastro de Funcionarios</div>
 		<div class="panel-body">
 			<div>
-				<ul class="nav nav-tabs" role="tablist">
-					<li role="presentation" class="active"><a href="#cadastro"
-						aria-controls="cadastro" role="tab" data-toggle="tab">Cadastro</a>
-					</li>
-					<li role="presentation"><a href="#dados" aria-controls="dados"
-						role="tab" data-toggle="tab">Dados</a></li>
-				</ul>
-
-				<div class="tab-content">
-					<div role="tabpanel" class="tab-pane active" id="cadastro">
-						<br>
-						<button type="button" class="btn btn-info" ng-click="novo()">Novo</button>
-						<button type="button" class="btn btn-success" ng-click="salvar()">Salvar</button>
-						<button type="button" class="btn btn-danger" ng-click="excluir()">Excluir</button>
-						<button type="button" class="btn btn-warning" ng-click="pesquisar()">Pesqusiar</button>
-						<hr />
-
-						<form>
+			
+			<form name="formPrincipal" >
+			
+					<!-- Mensagens: Percorre o array de mensagens do controller e apresenta na tela -->
+					<div ng-repeat="mensagen in mensagens" ng-show="formPrincipal.$invalid">
+						<div class="alert alert-danger">
+							<strong>Mensagem: </strong> {{mensagen}}
+						</div>
+					</div>
+					
+					<div class="panel panel-success">
+						<div class="panel-body">		
 							<div class="form-group col-md-2">
-								<label for="exampleInputCodigo">Codigo</label> <input
+								<label for="exampleInputCodigo"  style="font-weight: bold;">Codigo</label> <input
 									type="text" disabled="true" class="form-control"
 									ng-model="funcionario.idfuncionario" placeholder="Codigo">
 							</div>
 
 							<div class="form-group col-md-6">
-								<label for="exampleInputNome">Nome</label> <input type="text"
-									class="form-control" ng-model="funcionario.nmFuncionario" id="inputNome"
-									placeholder="Insira o Nome">
+								<label for="exampleInputNome">Nome</label> 
+								<div class="input-group">
+									<span ng-show="formPrincipal.nmFuncionario.$error.required" class="input-group-addon" style="color:red;"><i class="glyphicon glyphicon-asterisk"></i></span>
+									<span ng-show="!formPrincipal.nmFuncionario.$error.required" class="input-group-addon" style="color:green;"><i class="glyphicon glyphicon-asterisk"></i></span>
+									<input type="text" name="nmFuncionario" class="form-control" 
+									ng-model="funcionario.nmFuncionario" id="inputNome" placeholder="Insira o Nome">
+								</div>
 							</div>
 
 							<div class="form-group col-md-4">
-								<label for="exampleInputCpf">CPF</label> <input type="text"
+								<label for="exampleInputCpf">CPF</label> 
+								<div class="input-group">
+									<span ng-show="formPrincipal.inputCpf.$error.required" class="input-group-addon" style="color:red;"><i class="glyphicon glyphicon-asterisk"></i></span>
+									<span ng-show="!formPrincipal.inputCpf.$error.required" class="input-group-addon" style="color:green;"><i class="glyphicon glyphicon-asterisk"></i></span>
+									<input type="text"  name="inputCpf" 
 									class="form-control" ng-model="funcionario.nmCpf" id="inputCpf"
 									placeholder="Insira o CPF">
+								</div>
 							</div>
 
 							<div class="form-group col-md-4">
-								<label for="exampleInputEndereco">Endereco</label> <input
-									type="text" class="form-control" ng-model="funcionario.dsEndereco"
+								<label for="exampleInputEndereco">Endereco</label> 
+								<div class="input-group">
+									<span ng-show="formPrincipal.dsEndereco.$error.required" class="input-group-addon" style="color:red;"><i class="glyphicon glyphicon-asterisk"></i></span>
+									<span ng-show="!formPrincipal.dsEndereco.$error.required" class="input-group-addon" style="color:green;"><i class="glyphicon glyphicon-asterisk"></i></span>
+									<input type="text" name="dsEndereco" 
+									class="form-control" ng-model="funcionario.dsEndereco"
 									id="inputEndereco" placeholder="Insira o Endereco">
+								</div>
 							</div>
 
 							<div class="form-group col-md-4">
-								<label for="exampleInputEscolaridade">Escolaridade</label> <input
-									type="text" class="form-control" ng-model="funcionario.dsEscolaridade"
+								<label for="exampleInputEscolaridade">Escolaridade</label> 
+								<div class="input-group">
+									<span ng-show="formPrincipal.dsEscolaridade.$error.required" class="input-group-addon" style="color:red;"><i class="glyphicon glyphicon-asterisk"></i></span>
+									<span ng-show="!formPrincipal.dsEscolaridade.$error.required" class="input-group-addon" style="color:green;"><i class="glyphicon glyphicon-asterisk"></i></span>
+									<input type="text" name="dsEscolaridade" 
+									class="form-control" ng-model="funcionario.dsEscolaridade"
 									id="inputEscolaridade" placeholder="Insira a Escolaridade">
+								</div>	
 							</div>
-							
 
 							<div class="form-group col-md-2">
-								<label for="exampleInputTelefone">Telefone</label> <input
-									type="text" class="form-control" ng-model="funcionario.nrTelefone"
+								<label for="exampleInputTelefone">Telefone</label> 
+								<div class="input-group">
+									<span ng-show="formPrincipal.nrTelefone.$error.required" class="input-group-addon" style="color:red;"><i class="glyphicon glyphicon-asterisk"></i></span>
+									<span ng-show="!formPrincipal.nrTelefone.$error.required" class="input-group-addon" style="color:green;"><i class="glyphicon glyphicon-asterisk"></i></span>
+									<input type="text" name="nrTelefone" 
+									class="form-control" ng-model="funcionario.nrTelefone"
 									id="inputTelefone" placeholder="Insira o Telefone">
+								</div>
 							</div>
 
 							<div class="form-group col-md-2">
-								<label for="exampleInputSenha">Senha</label> <input
-									type="text" class="form-control" ng-model="funcionario.dsSenha"
-									id="inputSenha"
-									placeholder="Senha">
+								<label for="exampleInputSenha">Senha</label> 
+								<div class="input-group">
+									<span ng-show="formPrincipal.dsSenha.$error.required" class="input-group-addon" style="color:red;"><i class="glyphicon glyphicon-asterisk"></i></span>
+									<span ng-show="!formPrincipal.dsSenha.$error.required" class="input-group-addon" style="color:green;"><i class="glyphicon glyphicon-asterisk"></i></span>
+									<input	type="text" name="dsSenha" 
+									class="form-control" ng-model="funcionario.dsSenha"
+									id="inputSenha"	placeholder="Senha">
+								</div>
 							</div>
 							<div class="form-group col-md-2">
-								<label for="exampleInputPerfil">Perfil</label> <input
-									type="text" class="form-control" ng-model="funcionario.nrPerfil"
-									id="inputSenha"
-									placeholder="Perfil">
+								<label for="exampleInputPerfil">Perfil</label> 
+								<div class="input-group">
+									<span ng-show="formPrincipal.nrPerfil.$error.required" class="input-group-addon" style="color:red;"><i class="glyphicon glyphicon-asterisk"></i></span>
+									<span ng-show="!formPrincipal.nrPerfil.$error.required" class="input-group-addon" style="color:green;"><i class="glyphicon glyphicon-asterisk"></i></span>
+									<input type="text"  name="nrPerfil"
+									class="form-control" ng-model="funcionario.nrPerfil"
+									id="inputSenha" placeholder="Perfil">
+							 	</div>
 							</div>
-						</form>
+						</div>
 					</div>
+					
+					<a name="opcoes"></a>
+					<div class="panel panel-success">
 
-					<div role="tabpanel" class="tab-pane" id="dados">
-						<br> <input type="text" class="form-control"
-							ng-model="criterio" placeholder="O que voce esta procurando?" />
-						<br>
-						<table class="table table-striped table-bordered table-hover">
-							<tr>
-							<th>Codigo</th>
-							<th>Nome</th>
-							<th>CPF</th>
-							<th>Endereco</th>
-							<th>Escolaridade</th>
-							<th>Telefone</th>
-							<th>Senha</th>
-							<th>Perfil</th>
-							</tr>
-							<tbody>
-							<tr ng-repeat="funcionarioTabela in funcionarios | filter:criterio"
-								ng-click="seleciona(funcionarioTabela)">
-								<td>{{funcionarioTabela.idFuncionario}}</td>
-								<td>{{funcionarioTabela.nmFuncionario}}</td>
-								<td>{{funcionarioTabela.nmCpf}}</td>
-								<td>{{funcionarioTabela.dsEndereco}}</td>
-								<td>{{funcionarioTabela.dsEscolaridade}}</td>
-								<td>{{funcionarioTabela.nrTelefone}}</td>
-								<td>{{funcionarioTabela.dsSenha}}</td>
-								<td>{{funcionarioTabela.nrPerfil}}</td>
-							</tr>
+						<div class="panel-heading">
+							<h3 class="panel-title">
+								<span class="glyphicon glyphicon-wrench "></span> Opções
+							</h3>
+						</div>
+
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-xs-12 col-md-12 pull-left">
+									<a href="#" class="btn btn-success btn-lg"
+										title="Salvar Registro" role="button" ng-click="salvar()" ><span
+										class="glyphicon glyphicon-floppy-disk"></span> <br/> Salvar</a> 
+										
+									<a href="#" class="btn btn-danger btn-lg"
+										title="Excluir um Registro Existente" role="button"
+										ng-click="excluir()"><span class="glyphicon glyphicon-trash"></span> <br/>Excluir</a> 
+										
+									<a href="#" class="btn btn-warning btn-lg"
+										title="Atualizar Tabela de Registros" role="button"
+										ng-click="pesquisar()"><span class="glyphicon glyphicon-refresh"></span>
+										<br />Atualizar</a> 
+										
+									<a href="#" class="btn btn-primary btn-lg"
+										title="Limpar Campos para Cadastrar um Novo Registro"
+										role="button" ng-click="novo()"><span
+										class="glyphicon glyphicon-folder-open"></span> <br />Novo</a>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+				</form>
+			
+				<a name="pesquisar"></a>
+				<br>
+					<div class="input-group">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+						<input type="text" class="form-control" ng-model="criterio"
+								placeholder="Pesquisar um registro já cadastrado." /> 
+					</div>
+				<br>
+
+
+				<div class="panel panel-success">
+					<div class="panel-body">
+
+						<table class="dataTable table table-striped table-bordered table-hover table-list">
+							
+							<thead>
+								<tr>
+									<th style="width: 5%; text-align: center">
+										<em class="fa fa-cog"></em>										
+									</th>
+									
+									<th ng-click="ordenar('codigo')">Código
+										<span class="glyphicon sort-icon" ng-show="sortKey=='codigo'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+									</th>
+									<th ng-click="ordenar('nome')">Nome
+										<span class="glyphicon sort-icon" ng-show="sortKey=='nome'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+									</th>
+									<th ng-click="ordenar('cpf')">CPF
+										<span class="glyphicon sort-icon" ng-show="sortKey=='cpf'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+									</th>
+									<th ng-click="ordenar('endereco')">Endereco
+										<span class="glyphicon sort-icon" ng-show="sortKey=='endereco'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+									</th>
+									<th ng-click="ordenar('escolaridade')">Escolaridade
+										<span class="glyphicon sort-icon" ng-show="sortKey=='escolaridade'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+									</th>
+									<th ng-click="ordenar('telefone')">Telefone
+										<span class="glyphicon sort-icon" ng-show="sortKey=='telefone'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+									</th>
+									<th ng-click="ordenar('senha')">Senha
+										<span class="glyphicon sort-icon" ng-show="sortKey=='senha'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+									</th>
+									<th ng-click="ordenar('perfil')">Perfil
+										<span class="glyphicon sort-icon" ng-show="sortKey=='perfil'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+									</th>
+								</tr>
+							</thead>
+							
+							<tbody>							        
+								<tr dir-paginate="funcionarioTabela in funcionarios|filter:criterio|orderBy:sortKey:reverse|itemsPerPage:5"
+									ng-click="seleciona(funcionarioTabela)">
+									<td style="width: 5%" align="center"><a
+										class="btn btn-default" data-toggle="tooltip"
+										data-placement="top" title="Selecionar Registro"><em
+										class="fa fa-pencil"></em></a></td>
+										<td>{{funcionarioTabela.idFuncionario}}</td>
+										<td>{{funcionarioTabela.nmFuncionario}}</td>
+										<td>{{funcionarioTabela.nmCpf}}</td>
+										<td>{{funcionarioTabela.dsEndereco}}</td>
+										<td>{{funcionarioTabela.dsEscolaridade}}</td>
+										<td>{{funcionarioTabela.nrTelefone}}</td>
+										<td>{{funcionarioTabela.dsSenha}}</td>
+										<td>{{funcionarioTabela.nrPerfil}}</td>
+								</tr>
 							</tbody>
 						</table>
-						<span ng-show="(funcionarios | filter:criterio).length == 0">Infelizmente
-							não temos o item que você está procurando!</span>
+						
+						<div class="row">
+							<div class="col-md-4 col-xs-4 pull-left"></div>
+							<div class="col-md-8 col-xs-8 pull-center">
+								<dir-pagination-controls max-size="5" direction-links="true" boundary-links="true" >
+								</dir-pagination-controls>
+							</div>
+						</div>
+
+						<span ng-show="(funcionarios | filter:criterio).length == 0">Nenhum
+							registro disponível!</span>
+						<a name="registrosCadastrados"></a>	
+							
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	
+	<!-- Rodapé -->
+	<div ng-include="'rodape.html'"></div>
+	
 </body>
 </html>
