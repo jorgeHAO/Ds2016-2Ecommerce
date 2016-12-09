@@ -1,128 +1,294 @@
 <!DOCTYPE html>
-<html ng-app="clienteModule">
+<html lang="en" ng-app="clienteModule">
+
 <head>
-<meta charset="utf-8">
-<title>Cliente</title>
-<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-<script src="js/angular.min.js"></script>
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="control/clienteControl.js"></script>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description"
+		content="Cadastro dos Clientes para Sistema de Auto Escola">
+	<title>Cadastro de Cliente</title>
+	
+	<link rel="shortcut icon" href="img/favicon.png" />
+
+	<!-- Bootstrap Core CSS -->
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+
+	<script src="js/angular.min.js"></script>
+
+	<!-- Custom CSS -->
+	<link href="css/landing-page.css" rel="stylesheet">
+
+	<!-- Custom Fonts -->
+	<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet"
+		type="text/css">
+
+	<link
+		href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic"
+		rel="stylesheet" type="text/css">
+
+	<!-- Java Script para importação da Biblioteca Angular -->
+	<script src="js/angular.min.js"></script>
+
+	<!-- Java Script Controlador que Integra o FrontEnd com BackEnd -->
+	<script src="control/clienteControl.js"></script>
+
+	<!-- Java Script Para as validações Genéricas do Projeto. -->
+	<script src="js/autoEscola.js"></script>
+
 </head>
+
 <body ng-controller="clienteControl">
-	<div ng-include="'menu.html'"></div>
-	<!--<img src="img/logo.png" class="img-responsive" alt="Responsive image">-->
-	<div class="panel panel-default">
-		<div class="panel-heading">Cadastro de cliente</div>
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="js/jquery-1.12.2.min.js"></script>
+
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="js/bootstrap.min.js"></script>
+	
+	<!-- Java Script Para a Bibliotéca de Paginação de Table. -->
+	<script src="control/dirPagination.js"></script>
+
+	<!-- cabeçalho -->
+	<div ng-include="'cabecalho.html'"></div>
+	<a name="inicio"></a>
+	<div class="panel panel-success">
+		<div class="panel-heading ">Cadastro de Cliente</div>
 		<div class="panel-body">
 			<div>
-				<ul class="nav nav-tabs" role="tablist">
-					<li role="presentation" class="active"><a href="#cadastro"
-						aria-controls="cadastro" role="tab" data-toggle="tab">Cadastro</a>
-					</li>
+			
+				<form name="formPrincipal" >
 					
-					<li role="presentation"><a href="#dados" aria-controls="dados"
-						role="tab" data-toggle="tab">Dados</a></li>
-				</ul>
-				<!-- Tab panes -->
-				<div class="tab-content">
-					<div role="tabpanel" class="tab-pane active" id="cadastro">
-						<br>
-						<button type="button" class="btn btn-info" ng-click="novo()">Novo</button>
-						<button type="button" class="btn btn-success" ng-click="salvar()">Salvar</button>
-						<button type="button" class="btn btn-danger" ng-click="excluir()">Excluir</button>
-						<button type="button" class="btn btn-warning"
-							ng-click="pesquisar()">Pesqusiar</button>
-						<hr />
-
-						<form>
+					<!-- Mensagens: Percorre o array de mensagens do controller e apresenta na tela -->
+					<div ng-repeat="mensagen in mensagens" ng-show="formPrincipal.$invalid">
+						<div class="alert alert-danger">
+							<strong>Mensagem: </strong> {{mensagen}}
+						</div>
+					</div>
+					
+					<div class="panel panel-success">
+						<div class="panel-body">							
 							<div class="form-group col-md-2">
-								<label for="exampleInputCodigo">Codigo</label> <input
-									type="text" disabled="true" class="form-control"
-									ng-model="cliente.codigo" placeholder="Codigo">
+								<label for="exampleInputCodigo" style="font-weight: bold;">Codigo</label>
+								<input type="text" disabled="true" class="form-control" 
+									ng-model="cliente.codigo" placeholder="Codigo">									
 							</div>
 
 							<div class="form-group col-md-6">
-								<label for="exampleInputNome">Nome</label> <input type="text"
-									class="form-control" ng-model="cliente.nome"
+								<label for="exampleInputNome">Nome</label> 
+									<div class="input-group">
+									<span ng-show="formPrincipal.nome.$error.required" class="input-group-addon" style="color:red;"><i class="glyphicon glyphicon-asterisk"></i></span>
+									<span ng-show="!formPrincipal.nome.$error.required" class="input-group-addon" style="color:green;"><i class="glyphicon glyphicon-asterisk"></i></span>
+									<input type="text" name = "nome" class="form-control" ng-model="cliente.nome"
 									placeholder="Insira o Nome">
+									</div>
 							</div>
 
 							<div class="form-group col-md-4">
-								<label for="exampleInputCargo">Cargo</label> <input type="text"
+								<label for="exampleInputCargo">Cargo</label> 
+									<div class="input-group">
+									<span ng-show="formPrincipal.cargo.$error.required" class="input-group-addon" style="color:red;"><i class="glyphicon glyphicon-asterisk"></i></span>
+									<span ng-show="!formPrincipal.cargo.$error.required" class="input-group-addon" style="color:green;"><i class="glyphicon glyphicon-asterisk"></i></span>
+									<input type="text" ng-required="true" name="cargo"
 									class="form-control" ng-model="cliente.cargo"
 									placeholder="Insira o Cargo">
+									</div>
 							</div>
 
 							<div class="form-group col-md-4">
-								<label for="exampleInputEndereco">Endereco</label> <input
-									type="text" class="form-control" ng-model="cliente.endereco"
+								<label for="exampleInputEndereco">Endereco</label> 
+									<div class="input-group">
+									<span ng-show="formPrincipal.endereco.$error.required" class="input-group-addon" style="color:red;"><i class="glyphicon glyphicon-asterisk"></i></span>
+									<span ng-show="!formPrincipal.endereco.$error.required" class="input-group-addon" style="color:green;"><i class="glyphicon glyphicon-asterisk"></i></span>
+									<input type="text" class="form-control" ng-model="cliente.endereco" 
+									ng-required="true" name="endereco"
 									placeholder="Insira o Endereco">
+									</div>
 							</div>
 
 							<div class="form-group col-md-4">
-								<label for="exampleInputCidade">Cidade</label> <input
-									type="text" class="form-control" ng-model="cliente.cidade"
+								<label for="exampleInputCidade">Cidade</label>
+									<div class="input-group">
+									<span ng-show="formPrincipal.cidade.$error.required" class="input-group-addon" style="color:red;"><i class="glyphicon glyphicon-asterisk"></i></span>
+									<span ng-show="!formPrincipal.cidade.$error.required" class="input-group-addon" style="color:green;"><i class="glyphicon glyphicon-asterisk"></i></span> 
+									<input type="text" class="form-control" ng-model="cliente.cidade" 
+									ng-required="true" name="cidade"
 									placeholder="Insira a Cidade">
+									</div>
 							</div>
 
 							<div class="form-group col-md-2">
-								<label for="exampleInputCep">Cep</label> <input type="text"
+								<label for="exampleInputCep">Cep</label>
+									<div class="input-group">
+									<span ng-show="formPrincipal.cep.$error.required" class="input-group-addon" style="color:red;"><i class="glyphicon glyphicon-asterisk"></i></span>
+									<span ng-show="!formPrincipal.cep.$error.required" class="input-group-addon" style="color:green;"><i class="glyphicon glyphicon-asterisk"></i></span> 
+									<input type="text" ng-required="true" name="cep"
 									class="form-control" ng-model="cliente.cep"
 									placeholder="Insira o Cep">
+									</div>
 							</div>
 
 							<div class="form-group col-md-4">
-								<label for="exampleInputPais">Pais</label> <input type="text"
+								<label for="exampleInputPais">País</label> 
+									<div class="input-group">
+									<span ng-show="formPrincipal.pais.$error.required" class="input-group-addon" style="color:red;"><i class="glyphicon glyphicon-asterisk"></i></span>
+									<span ng-show="!formPrincipal.pais.$error.required" class="input-group-addon" style="color:green;"><i class="glyphicon glyphicon-asterisk"></i></span>
+									<input type="text" ng-required="true" name="pais"
 									class="form-control" ng-model="cliente.pais"
 									placeholder="Insira o Pais">
+									</div>
 							</div>
 
 							<div class="form-group col-md-4">
-								<label for="exampleInputTelefone">Telefone</label> <input
-									type="text" class="form-control" ng-model="cliente.telefone"
+								<label for="exampleInputTelefone">Telefone</label> 
+									<div class="input-group">
+									<span ng-show="formPrincipal.telefone.$error.required" class="input-group-addon" style="color:red;"><i class="glyphicon glyphicon-asterisk"></i></span>
+									<span ng-show="!formPrincipal.telefone.$error.required" class="input-group-addon" style="color:green;"><i class="glyphicon glyphicon-asterisk"></i></span>
+									<input type="text" class="form-control" ng-model="cliente.telefone" 
+								    ng-required="true" name="telefone"
 									placeholder="Insira o Telefone">
+									</div>
 							</div>
 
 							<div class="form-group col-md-4">
-								<label for="exampleInputFax">Fax</label> <input type="text"
+								<label for="exampleInputFax">Fax</label>
+									<div class="input-group">
+									<span ng-show="formPrincipal.fax.$error.required" class="input-group-addon" style="color:red;"><i class="glyphicon glyphicon-asterisk"></i></span>
+									<span ng-show="!formPrincipal.fax.$error.required" class="input-group-addon" style="color:green;"><i class="glyphicon glyphicon-asterisk"></i></span> 
+									<input type="text" ng-required="true" name="fax"
 									class="form-control" ng-model="cliente.fax"
 									placeholder="Insira o Fax">
+									</div>
 							</div>
-						</form>
+						</div>
 					</div>
-					<div role="tabpanel" class="tab-pane" id="dados">
-						<br> <input type="text" class="form-control"
-							ng-model="criterio" placeholder="O que voce esta procurando?" />
-						<br>
-						<table class="table table-hover">
-							<th>Codigo</th>
-							<th>Nome</th>
-							<th>Cargo</th>
-							<th>Endereco</th>
-							<th>Cidade</th>
-							<th>CEP</th>
-							<th>Pais</th>
-							<th>Telefone</th>
-							<th>Fax</th>
 
-							<tr ng-repeat="clienteTabela in clientes | filter:criterio"
-								ng-click="seleciona(clienteTabela);">
-								<td>{{clienteTabela.codigo}}</td>
-								<td>{{clienteTabela.nome}}</td>
-								<td>{{clienteTabela.cargo}}</td>
-								<td>{{clienteTabela.endereco}}</td>
-								<td>{{clienteTabela.cidade}}</td>
-								<td>{{clienteTabela.cep}}</td>
-								<td>{{clienteTabela.pais}}</td>
-								<td>{{clienteTabela.telefone}}</td>
-								<td>{{clienteTabela.fax}}</td>
-							</tr>
+					<a name="opcoes"></a>
+					<div class="panel panel-success">
+
+						<div class="panel-heading">
+							<h3 class="panel-title">
+								<span class="glyphicon glyphicon-wrench "></span> Opções
+							</h3>
+						</div>
+
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-xs-12 col-md-12 pull-left">
+									<a href="#" class="btn btn-success btn-lg"
+										title="Salvar Registro" role="button" ng-click="salvar()" ><span
+										class="glyphicon glyphicon-floppy-disk"></span> <br/> Salvar</a> 
+										
+									<a href="#" class="btn btn-danger btn-lg"
+										title="Excluir um Registro Existente" role="button"
+										ng-click="excluir()"><span class="glyphicon glyphicon-trash"></span> <br/>Excluir</a> 
+										
+									<a href="#" class="btn btn-warning btn-lg"
+										title="Atualizar Tabela de Registros" role="button"
+										ng-click="pesquisar()"><span class="glyphicon glyphicon-refresh"></span>
+										<br />Atualizar</a> 
+										
+									<a href="#" class="btn btn-primary btn-lg"
+										title="Limpar Campos para Cadastrar um Novo Registro"
+										role="button" ng-click="novo()"><span
+										class="glyphicon glyphicon-folder-open"></span> <br />Novo</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+				
+				<a name="pesquisar"></a>
+				<br>
+					<div class="input-group">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+						<input type="text" class="form-control" ng-model="criterio"
+								placeholder="Pesquisar um registro já cadastrado." /> 
+					</div>
+				<br>
+
+				<div class="panel panel-success">
+					<div class="panel-body">
+
+						<table class="dataTable table table-striped table-bordered table-hover table-list">
+							
+							<thead>
+								<tr>
+									<th style="width: 5%; text-align: center">
+										<em class="fa fa-cog"></em>										
+									</th>
+									<th ng-click="ordenar('codigo')">Código
+										<span class="glyphicon sort-icon" ng-show="sortKey=='codigo'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+									</th>
+									<th ng-click="ordenar('nome')">Nome
+										<span class="glyphicon sort-icon" ng-show="sortKey=='nome'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+									</th>
+									<th ng-click="ordenar('cargo')">Cargo
+										<span class="glyphicon sort-icon" ng-show="sortKey=='cargo'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+									</th>
+									<th ng-click="ordenar('endereco')">Endereço
+										<span class="glyphicon sort-icon" ng-show="sortKey=='endereco'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+									</th>
+									<th ng-click="ordenar('cidade')">Cidade
+										<span class="glyphicon sort-icon" ng-show="sortKey=='cidade'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+									</th>
+									<th ng-click="ordenar('cep')">CEP
+										<span class="glyphicon sort-icon" ng-show="sortKey=='cep'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+									</th>
+									<th ng-click="ordenar('pais')">País
+										<span class="glyphicon sort-icon" ng-show="sortKey=='pais'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+									</th>
+									<th ng-click="ordenar('telefone')">Telefone
+										<span class="glyphicon sort-icon" ng-show="sortKey=='telefone'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+									</th>									
+									<th ng-click="ordenar('fax')">Fax
+										<span class="glyphicon sort-icon" ng-show="sortKey=='fax'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+									</th>
+									
+								</tr>
+							</thead>
+							
+							<tbody>							        
+								<tr dir-paginate="clienteTabela in clientes|filter:criterio|orderBy:sortKey:reverse|itemsPerPage:5"
+									ng-click="seleciona(clienteTabela)">
+									<td style="width: 5%" align="center"><a
+										class="btn btn-default" data-toggle="tooltip"
+										data-placement="top" title="Selecionar Registro"><em
+											class="fa fa-pencil"></em></a></td>
+									<td>{{clienteTabela.codigo}}</td>
+									<td>{{clienteTabela.nome}}</td>
+									<td>{{clienteTabela.cargo}}</td>
+									<td>{{clienteTabela.endereco}}</td>
+									<td>{{clienteTabela.cidade}}</td>
+									<td>{{clienteTabela.cep}}</td>
+									<td>{{clienteTabela.pais}}</td>
+									<td>{{clienteTabela.telefone}}</td>
+									<td>{{clienteTabela.fax}}</td>
+								</tr>
+							</tbody>
 						</table>
+						
+						<div class="row">
+							<div class="col-md-4 col-xs-4 pull-left"></div>
+							<div class="col-md-8 col-xs-8 pull-center">
+								<dir-pagination-controls max-size="5" direction-links="true" boundary-links="true" >
+								</dir-pagination-controls>
+							</div>
+						</div>
+
+						<span ng-show="(clientes | filter:criterio).length == 0">Nenhum
+							registro disponível!</span>
+						<a name="registrosCadastrados"></a>	
+							
 					</div>
 				</div>
+
 			</div>
 		</div>
 	</div>
+
+
+	<!-- Rodapé -->
+	<div ng-include="'rodape.html'"></div>
+	
 </body>
 </html>
