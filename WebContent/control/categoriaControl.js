@@ -1,7 +1,7 @@
 var app = angular.module('categoriaModule',[]);
 app.controller('categoriaControl',function($scope,$http) {
 	
-	urlcategoria = 'http://127.0.0.1:8080/DS2016-2Ecommerce/rs/categoria';
+	urlcategoria = 'http://localhost:8080/DS2016-2Ecommerce/rs/categoria';
 	
 	$scope.salvar = function() {
 		if ($scope.categoria.idCategoria == ''){
@@ -12,13 +12,21 @@ app.controller('categoriaControl',function($scope,$http) {
 					alert(erro);
 			});
 		} else {
-			$http.put(urlcategoria,$scope.categoria).success(function(cliente){
+			$http.put(urlcategoria,$scope.categoria).success(function(categoria){
 				$scope.pesquisar();
 				$scope.novo();
 			}).error(function (erro){
 				alert(erro);
 			});
 		}
+	}
+	
+	$scope.montaMensagemErro = function(listaErro) {
+		$scope.mensagens = [];
+		$scope.mensagens.push('Falha de validação retornada do servidor');
+		angular.forEach(listaErro, function(value, key){
+			 $scope.mensagens.push(value.message);
+		});
 	}
 	
 	$scope.pesquisar = function() {
@@ -31,16 +39,18 @@ app.controller('categoriaControl',function($scope,$http) {
 	
 	$scope.excluir = function() {
 		if ($scope.categoria.idCategoria == ''){
-			alert('Selecione um cliente');
-		} else {
-			urlExcluir = urlcategoria + '/' + $scope.categoria;
-			$http.delete(urlExcluir).success(function(){
-				$scope.pesquisar();
-				$scope.novo();
-			}).error(function(erro) {
-				alert(erro);
-			});
-		}
+			alert('Selecione uma Categoria');
+	} else {
+		$http.delete(urlcategoria+"/"+$scope.categoria.idCategoria).success(function() {
+			$scope.categorias.splice($scope.categorias.indexOf($scope.categoria), 1);	
+			$scope.novo();
+			$scope.mensagens.push('Categoria excluído com sucesso');
+		}).error(function (erro) {
+			//$scope.mensagens.push('Erro ao salvar Aluno: '+JSON.stringify(erro));
+			$scope.montaMensagemErro(erro.parameterViolations);
+		});
+	}
+		
 		
 		//$scope.categorias.splice($scope.categorias.indexOf($scope.categoria), 1);	
 		//$scope.novo();  		
@@ -48,6 +58,7 @@ app.controller('categoriaControl',function($scope,$http) {
 	
 	$scope.novo = function () { 
 		$scope.categoria = {};
+		$scope.mensagens=[];
 	}; 	
 	
 	$scope.seleciona = function (categoria) {
@@ -55,5 +66,6 @@ app.controller('categoriaControl',function($scope,$http) {
 	};	
 	
 	$scope.pesquisar();
+	$scope.novo();
 	
 });

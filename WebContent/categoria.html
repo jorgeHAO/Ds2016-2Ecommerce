@@ -150,8 +150,8 @@
 							</thead>
 							
 							<tbody>							        
-								<tr dir-paginate="tipoPagamentoTabela in tipoPagamentos|filter:criterio|orderBy:sortKey:reverse|itemsPerPage:5"
-									ng-click="seleciona(tipoPagamentoTabela)">
+								<tr dir-paginate="categoriaTabela in categorias|filter:criterio|orderBy:sortKey:reverse|itemsPerPage:5"
+									ng-click="seleciona(categoriaTabela)">
 									<td style="width: 5%" align="center"><a
 										class="btn btn-default" data-toggle="tooltip"
 										data-placement="top" title="Selecionar Registro"><em
@@ -170,7 +170,7 @@
 							</div>
 						</div>
 
-						<span ng-show="(tipoPagamentos | filter:criterio).length == 0">Nenhum
+						<span ng-show="(categorias | filter:criterio).length == 0">Nenhum
 							registro disponível!</span>
 						<a name="registrosCadastrados"></a>	
 							
