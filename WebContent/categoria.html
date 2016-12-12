@@ -62,11 +62,11 @@
 				<form name="formPrincipal" >
 					
 					<!-- Mensagens: Percorre o array de mensagens do controller e apresenta na tela -->
-					<!--<div ng-repeat="mensagen in mensagens" ng-show="formPrincipal.$invalid">
+					<div ng-repeat="mensagen in mensagens" ng-show="formPrincipal.$invalid">
 						<div class="alert alert-danger">
 							<strong>Mensagem: </strong> {{mensagen}}
 						</div>
-					</div>-->
+					</div>
 					
 					<div class="panel panel-success">
 						<div class="panel-body">							
@@ -78,11 +78,15 @@
 
 							<div class="form-group col-md-6">														
 								<label for="inputNome">Nome</label>
-								<input type="text" name="dsCategoria"
-									class="form-control" ng-model="categoria.dsCategoria"
-									id="inputNome"
-									placeholder="Insira o nome da Categoria" maxlength="255" required >
-								<span ng-show="formPrincipal.dsCategoria.$error.required" style="color:red;">Campo Obrigatório.</span>
+								
+								<div class="input-group">
+									<span ng-show="formPrincipal.dsCategoria.$error.required" class="input-group-addon" style="color:red;"><i class="glyphicon glyphicon-asterisk"></i></span>
+									<span ng-show="!formPrincipal.dsCategoria.$error.required" class="input-group-addon" style="color:green;"><i class="glyphicon glyphicon-asterisk"></i></span>
+									<input type="text" name="dsCategoria"
+										class="form-control" ng-model="categoria.dsCategoria"
+										id="inputNome"
+										placeholder="Insira o nome da Categoria" maxlength="255" required >
+								</div>
 							</div>
 						</div>
 					</div>

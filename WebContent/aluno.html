@@ -109,7 +109,7 @@
 								<div class="input-group">
 									<span ng-show="formPrincipal.dtAluno.$error.required" class="input-group-addon" style="color:red;"><i class="glyphicon glyphicon-asterisk"></i></span>
 									<span ng-show="!formPrincipal.dtAluno.$error.required" class="input-group-addon" style="color:green;"><i class="glyphicon glyphicon-asterisk"></i></span>
-									<input type="text" name="dtAluno" required ui-mask="99/99/9999" class="form-control" ng-model="aluno.dtNascimentoStr" >
+									<input type="text" name="dtAluno" required ui-mask="99/99/9999" class="form-control" ng-model="aluno.dtNascimento" >
 								</div>
 							</div>							
 							
@@ -203,7 +203,7 @@
 								<td>{{alunoTabela.nmPessoa}}</td>
 								<td>{{alunoTabela.nmCpf}}</td>
 								<td>{{alunoTabela.dsEndereco}}</td>
-								<td>{{alunoTabela.dtNascimentoStr}}</td>
+								<td>{{alunoTabela.dtNascimento | date : 'dd/MM/yyyy' : 'UTC'}}</td>
 								<td>{{alunoTabela.nrTelefone}}</td>
 								<td>{{alunoTabela.nrPrenach}}</td>
 							</tr>

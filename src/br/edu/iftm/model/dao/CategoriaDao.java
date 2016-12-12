@@ -10,31 +10,44 @@ import javax.transaction.Transactional;
 import br.edu.iftm.model.domain.Categoria;
 
 public class CategoriaDao implements ICategoriaDao {
-	
-	@PersistenceContext(unitName="DS2016-2EcommercePU")
+
+	@PersistenceContext(unitName = "DS2016-2EcommercePU")
 	private EntityManager entityManager;
-	
-	/* (non-Javadoc)
-	 * @see br.edu.iftm.model.dao.ICategoriaDao#salvar(br.edu.iftm.model.domain.Categoria)
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see br.edu.iftm.model.dao.ICategoriaDao#salvar(br.edu.iftm.model.domain.
+	 * Categoria)
 	 */
 	@Override
 	@Transactional
-	public void salvar(Categoria categoria) {
+	public Categoria salvar(Categoria categoria) {
 		entityManager.persist(categoria);
-	}
-	
-	/* (non-Javadoc)
-	 * @see br.edu.iftm.model.dao.ICategoriaDao#atualizar(br.edu.iftm.model.domain.Categoria)
-	 */
-	@Override
-	@Transactional
-	public void atualizar(Categoria categoria) {
-		Categoria merge = entityManager.merge(categoria);
-		entityManager.persist(merge);
+		return categoria;
 	}
 
-	/* (non-Javadoc)
-	 * @see br.edu.iftm.model.dao.ICategoriaDao#excluir(br.edu.iftm.model.domain.Categoria)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * br.edu.iftm.model.dao.ICategoriaDao#atualizar(br.edu.iftm.model.domain.
+	 * Categoria)
+	 */
+	@Override
+	@Transactional
+	public Categoria atualizar(Categoria categoria) {
+		Categoria merge = entityManager.merge(categoria);
+		entityManager.persist(merge);
+		return merge;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * br.edu.iftm.model.dao.ICategoriaDao#excluir(br.edu.iftm.model.domain.
+	 * Categoria)
 	 */
 	@Override
 	@Transactional
@@ -43,8 +56,11 @@ public class CategoriaDao implements ICategoriaDao {
 		entityManager.remove(merge);
 	}
 
-	/* (non-Javadoc)
-	 * @see br.edu.iftm.model.dao.ICategoriaDao#buscar(br.edu.iftm.model.domain.Categoria)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see br.edu.iftm.model.dao.ICategoriaDao#buscar(br.edu.iftm.model.domain.
+	 * Categoria)
 	 */
 	@Override
 	@SuppressWarnings("unchecked")
@@ -55,8 +71,8 @@ public class CategoriaDao implements ICategoriaDao {
 
 	public Categoria buscarPorId(Integer id) {
 		Query query = entityManager.createQuery("from Categoria where codigo = :codigo");
-		query.setParameter("codigo",id);
-		return (Categoria)query.getSingleResult();
+		query.setParameter("codigo", id);
+		return (Categoria) query.getSingleResult();
 	}
 
 }

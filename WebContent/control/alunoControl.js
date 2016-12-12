@@ -1,5 +1,5 @@
-var app = angular.module('alunoModule',[]);
-app.controller('alunoControl',function($scope,$http){
+var app = angular.module('alunoModule',['angularUtils.directives.dirPagination']);
+app.controller('alunoControl',function($scope,$http, $filter){
 	
 	url = 'http://localhost:8080/DS2016-2Ecommerce/rs/aluno';
 	
@@ -55,12 +55,17 @@ app.controller('alunoControl',function($scope,$http){
 		}
 	}
 	
+	function formataData(data) {
+		return $filter('date')(data, 'dd/MM/yyyy', 'UTC');
+	}
+	
 	$scope.novo = function() {
 		$scope.aluno = {};
 		$scope.mensagens=[];
 	}
 	
 	$scope.seleciona = function(aluno) {
+		aluno.dtNascimento = formataData(aluno.dtNascimento);
 		$scope.aluno = aluno;
 	}
 	

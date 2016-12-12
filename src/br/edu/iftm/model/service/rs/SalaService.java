@@ -1,7 +1,5 @@
 package br.edu.iftm.model.service.rs;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -20,8 +18,8 @@ import br.edu.iftm.model.domain.Sala;
 import br.edu.iftm.model.service.ISalaService;
 
 @Path("/sala")
-@Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
-@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 public class SalaService implements ISalaService {
 
 	@Inject
@@ -45,7 +43,7 @@ public class SalaService implements ISalaService {
 	public void excluir(@PathParam("codigo") Integer codigo) {
 		salaDao.excluir(codigo);
 	}
-	
+
 	@GET
 	@Override
 	@Path("/{codigo}")

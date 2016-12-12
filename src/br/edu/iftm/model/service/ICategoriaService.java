@@ -6,9 +6,9 @@ import br.edu.iftm.model.domain.Categoria;
 
 public interface ICategoriaService {
 
-	void salvar(Categoria categoria);
+	Categoria salvar(Categoria categoria);
 
-	void atualizar(Categoria categoria);
+	Categoria atualizar(Categoria categoria);
 
 	void excluir(Integer codigo);
 	

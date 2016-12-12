@@ -82,7 +82,8 @@
 									<span ng-show="!formPrincipal.dsSala.$error.required" class="input-group-addon" style="color:green;"><i class="glyphicon glyphicon-asterisk"></i></span>								
 								<input type="text" name="dsSala"
 									class="form-control" ng-model="sala.nrSala" id="inputNome"
-									placeholder="Insira o número da Sala" maxlength="100" required>
+									placeholder="Insira o número da Sala" maxlength="100" required
+									onkeypress="return aceitarApenasNumeros(event)">
 								</div>	
 							</div>						
 
@@ -143,7 +144,7 @@
 								placeholder="Pesquisar um registro já cadastrado." /> 
 					</div>
 				<br>				
-			</div>
+			
 				<div class="panel panel-success">
 					<div class="panel-body">
 
@@ -155,20 +156,20 @@
 										<em class="fa fa-cog"></em>										
 									</th>
 									
-									<th ng-click="ordenar('Codigo')">Código
-										<span class="glyphicon sort-icon" ng-show="sortKey=='Codigo'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+									<th ng-click="ordenar('codigo')">Código
+										<span class="glyphicon sort-icon" ng-show="sortKey=='codigo'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
 									</th>
 									
-									<th ng-click="ordenar('Numero')">Número da Sala
-										<span class="glyphicon sort-icon" ng-show="sortKey=='Numero'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+									<th ng-click="ordenar('nrSala')">Número da Sala
+										<span class="glyphicon sort-icon" ng-show="sortKey=='nrSala'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
 									</th>
 									
-									<th ng-click="ordenar('Capacidade')">Capacidade
-										<span class="glyphicon sort-icon" ng-show="sortKey=='Capacidade'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+									<th ng-click="ordenar('capacidadeSala')">Capacidade da Sala
+										<span class="glyphicon sort-icon" ng-show="sortKey=='capacidadeSala'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
 									</th>
 								</tr>
-							</thead>			
-
+							</thead>
+							
 							<tbody>							        
 								<tr dir-paginate="salaTabela in salas|filter:criterio|orderBy:sortKey:reverse|itemsPerPage:5"
 									ng-click="seleciona(salaTabela)">
@@ -176,8 +177,8 @@
 										class="btn btn-default" data-toggle="tooltip"
 										data-placement="top" title="Selecionar Registro"><em
 											class="fa fa-pencil"></em></a></td>
-									<td>{{salaTabela.idSala}}</td>
-									<td>{{salaTabela.nrSala}}</td>
+									<td>{{salaTabela.idSala | number}}</td>
+									<td>{{salaTabela.nrSala | number}}</td>
 									<td>{{salaTabela.nrCapacidade}}</td>
 								</tr>
 							</tbody>
@@ -191,7 +192,7 @@
 							</div>
 						</div>
 
-						<span ng-show="(salas | filter:criterio).length == 0">Nenhum
+						<span ng-show="(tipoPagamentos | filter:criterio).length == 0">Nenhum
 							registro disponível!</span>
 						<a name="registrosCadastrados"></a>	
 							

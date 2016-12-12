@@ -1,4 +1,4 @@
-var app = angular.module('funcionarioModule',[]);
+var app = angular.module('funcionarioModule',['angularUtils.directives.dirPagination']);
 app.controller('funcionarioControl',function($scope,$http){
 	
 	url = 'http://localhost:8080/DS2016-2Ecommerce/rs/funcionario';

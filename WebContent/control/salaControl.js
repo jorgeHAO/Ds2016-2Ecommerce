@@ -1,10 +1,10 @@
-var app = angular.module('salaModule',[]);
+var app = angular.module('salaModule',['angularUtils.directives.dirPagination']);
 app.controller('salaControl',function($scope,$http){
 	
 	url = 'http://localhost:8080/DS2016-2Ecommerce/rs/sala';
 	
 	$scope.salvar = function() {	
-		if ($scope.aluno.idSala == undefined || $scope.sala.idSala == '') {    		
+		if ($scope.sala.idSala == undefined || $scope.sala.idSala == '') {    		
 			$http.post(url,$scope.sala).success(function(salasRetorno) {				
 				$scope.salas.push(salasRetorno);
 				$scope.novo();

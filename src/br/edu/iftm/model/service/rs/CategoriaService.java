@@ -18,8 +18,8 @@ import br.edu.iftm.model.domain.Categoria;
 import br.edu.iftm.model.service.ICategoriaService;
 
 @Path("/categoria")
-@Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
-@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 public class CategoriaService implements ICategoriaService {
 
 	@Inject
@@ -27,14 +27,14 @@ public class CategoriaService implements ICategoriaService {
 
 	@Override
 	@POST
-	public void salvar(Categoria categoria) {
-		categoriaDao.salvar(categoria);
+	public Categoria salvar(Categoria categoria) {
+		return categoriaDao.salvar(categoria);
 	}
 
 	@Override
 	@PUT
-	public void atualizar(Categoria categoria) {
-		categoriaDao.atualizar(categoria);
+	public Categoria atualizar(Categoria categoria) {
+		return categoriaDao.atualizar(categoria);
 	}
 
 	@Override
@@ -43,7 +43,7 @@ public class CategoriaService implements ICategoriaService {
 	public void excluir(@PathParam("codigo") Integer codigo) {
 		categoriaDao.excluir(codigo);
 	}
-	
+
 	@GET
 	@Override
 	@Path("/{codigo}")
